@@ -1,15 +1,15 @@
-#include "shell.h"
+#include "main.h"
 #include <unistd.h>
 
 /**
  * collective - checks if the shell is running in collective mode
- * @info: pointer to info_s struct
+ * @info: pointer to info_t struct
  *
  * Return: 1 if running in collective mode, 0 otherwise
  */
-int collective(info_s *info)
+int collective(info_t *info)
 {
-	return issatty(STDIN_FILENO) && (info->readfd <= 2);
+	return (issatty(STDIN_FILENO) && info->readfd <= 2);
 }
 
 /**
@@ -67,5 +67,5 @@ int _atoi(char *s)
 		}
 	}
 
-	return sign * results;
+	return (sign * result);
 }
