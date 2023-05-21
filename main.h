@@ -42,13 +42,56 @@ typedef struct linkedlst
 }link_s;
 
 /**
- * struct datainfo -
-
-
-
-
-
-
+ * struct datainfo - pseudo-arguments that will be passed into a function
+ * @path:path for command
+ * @str:string containing arguments
+ * @argc:argument count
+ * @argv:array of strings
+ * @err_exits:error for exit
+ * @err_count:count error
+ * @_envi_:modified environ
+ * @former_n:history node
+ * @counter:line of input count
+ * @filename:filename of the program
+ * @alia:alias node
+ * @status:status of the last command
+ * @cmd_add:adress of pointer
+ * @cmd_ty:cmd type
+ * @read_in:read line input
+ * @_env:linked list
+ * @env_new:changed environ
+ * @past_line:number line history
+ */
+typedef struct datainfo
+{
+	char *path;
+	char filename;
+	char **argv;
+	char **_envi_;
+	char **cmd_add;
+	char *str;
+	int cmd_ty;
+	int env_new;
+	int read_in;
+	int counter;
+	int argc;
+	int err_exits;
+	int status;
+	link_s *alias;
+	link_s *former_n;
+	link_s *_env;
+	unsigned int err_count;
+}data_s;
+/**
+ * struct built - builtin string
+ * @comm:builtin command
+ * @func:function
+ */
+typedef struct built
+{
+	char *comm;
+	int (*func)(data_s *)
+}built_t;
 
 
 
