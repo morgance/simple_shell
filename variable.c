@@ -93,4 +93,46 @@ int alias_rep(data_s *data)
 	return (1);
 }
 /**
- * vars_str 
+ * vars_str - replaces variables in a string that is tokenized
+ * @data:struct
+ *
+ * Return: 1 on success, 0 otherwise
+ */
+int replace_vars(data_s *data)
+{
+    int y = 0;
+    link_s *prim;
+    
+    for (y = 0; dat->argv[y]; y++)
+    {
+        if (data->argv[y][0] != '$' || !data->argv[y][1])
+            continue;
+        
+        if (!comp_st(data->argv[y], "$?"))
+        {
+            _string_rp(&(data->argv[y]), duplic_str(_numcon(data->status, 10, 0)));
+        }
+        else if (!comp_st(data->argv[y], "$$"))
+        {
+            _string_rp(&(data->argv[y]), duplic_str(_numcon(getpid(), 10, 0)));
+        }
+        else
+        {
+            char *var_name = &data->argv[y][1];
+            prim = str_strts(data->_env, var_name, '=');
+            
+            if (prim)
+            {
+                char *value = loc_str(prim->srt, '=') + 1;
+                _string_rp(&(data->argv[y]), duplic_str(value));
+            }
+            else
+            {
+                _string_str(&data->argv[y], duplic_str(""));
+            }
+        }
+    }
+    
+    return (1);
+}
+
