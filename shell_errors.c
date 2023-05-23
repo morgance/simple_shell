@@ -39,7 +39,7 @@ int conv_str_int(char *n)
 }
 /**
  * print_msg - prints error message
- * @data:parameter 
+ * @data:parameter
  * @strngs:string with error type
  *
  * Return:0 on success, -1 otherwise
@@ -81,12 +81,15 @@ int print_deci(int input, int filed)
 	}
 
 	int div = 1;
+
 	while (div <= input / 10)
+
 		div *= 10;
 
 	while (div > 0)
 	{
 		int digit = input / div;
+
 		fputc('0' + digit, stream);
 		count++;
 		input %= div;
@@ -95,4 +98,35 @@ int print_deci(int input, int filed)
 
 	return (count);
 }
+/**
+ * remove_comms - replaces first instance '#' with '\0'
+ * @addr:address of the string
+ *
+ * Return:0
+ */
+void remove_comms(char *addr)
+{
+	int j = 0;
+	bool commentf = false;
 
+	while (addr[j] != '\0')
+	{
+		if (addr[j] == '#' && (j == 0 || addr[j - 1] == ' '))
+		{
+			addr[j] = '\0';
+			commentf = true;
+			break;
+		}
+		j++;
+	}
+	if (commentf)
+	{
+		int i = j - 1;
+
+		while (i >= 0 && addr[i] == ' ')
+		{
+			addr[i] = '\0';
+			i--;
+		}
+	}
+}
