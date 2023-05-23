@@ -2,8 +2,8 @@
 /**
  * **strtow - splits a string into words
  * @str:input string
- * @delimiters: the delimeter string
- * Return: a pointer to an array of strings, or NULL on failure
+ * @delimiters:delimeter string
+ * Return:pointer to an array of strings
  */
 char **strtow(char *str, char *delimiters)
 {
@@ -21,7 +21,7 @@ char **strtow(char *str, char *delimiters)
 	/* Count the number of words */
 	for (i = 0; i < len; i++)
 	{
-		if (!is_delimiter(str[i], delimiters) && (is_delimiter(str[i + 1], delimiters) || str[i + 1] == '\0'))
+		if (!is_lim(str[i], delimiters) && (is_lim(str[i + 1], delimiters) || str[i + 1] == '\0'))
 			word_count++;
 	}
 
@@ -38,11 +38,11 @@ char **strtow(char *str, char *delimiters)
 	/* Extract words and store them in the array */
 	while (j < word_count)
 	{
-		while (is_delimiter(str[i], delimiters))
+		while (is_lim(str[i], delimiters))
 			i++;
 
 		k = 0;
-		while (!is_delimiter(str[i + k], delimiters) && str[i + k] != '\0')
+		while (!is_lim(str[i + k], delimiters) && str[i + k] != '\0')
 			k++;
 
 		words[j] = malloc((k + 1) * sizeof(char));
@@ -54,7 +54,7 @@ char **strtow(char *str, char *delimiters)
 			return (NULL);
 		}
 
-		strncpy(words[j], &str[i], k);
+		words[j] = duplic_str(&str[i], k);
 		words[j][k] = '\0';
 
 		i += k;
@@ -64,4 +64,3 @@ char **strtow(char *str, char *delimiters)
 	words[j] = NULL;
 	return (words);
 }
-
