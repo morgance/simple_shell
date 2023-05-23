@@ -99,6 +99,7 @@ int print_deci(int input, int filed)
 	return (count);
 }
 /**
+<<<<<<< HEAD
  * remove_comms - replaces first instance '#' with '\0'
  * @addr:address of the string
  *
@@ -122,6 +123,41 @@ void remove_comms(char *addr)
 	if (commentf)
 	{
 		int i = j - 1;
+=======
+ * _numcon - converter function
+ * @num:number
+ * @base:base
+ * @flags:argument flags
+ *
+ * Return:string
+ */
+char *_numcon(long int num, int base, int flags)
+{
+	static char fer[50];
+	const char *digits = (flags & CONVERT_LOWERCASE) ? "0123456789abcdef" : "0123456789ABCDEF";
+	bool isNegative = false;
+	int index = 49;
+
+	if (!(flags & CONVERT_UNSIGNED) && num < 0)
+	{
+		isNegative = true;
+		num = -num;
+	}
+
+	fer[index--] = '\0';
+
+	do {
+		fer[index--] = digits[num % base];
+		num /= base;
+	} while (num != 0);
+
+	if (isNegative)
+		fer[index--] = '-';
+
+	return (&fer[index + 1]);
+}
+
+>>>>>>> b7701f740093fc6e37d7170be051f52faac376a2
 
 		while (i >= 0 && addr[i] == ' ')
 		{

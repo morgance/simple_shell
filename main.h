@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <sys/wait.h>
+#include <stdbool.h>
 #include <string.h>
 #include <errno.h>
 
