@@ -55,3 +55,44 @@ void print_msg(data_s *data, char strngs)
 	_inputs(strngs);
 }
 /**
+ * print_deci -prints a decimal number
+ * @input: input
+ * @filed:filedescriptor to write to
+ *
+ * Return:characters printed
+ */
+int print_deci(int input, int filed)
+{
+	FILE *stream = (filed == STDERR_FILENO) ? stderr : stdout;
+	int count = 0;
+
+	if (input < 0)
+	{
+		fputc('-', stream);
+		count++;
+		input = -input;
+	}
+
+	if (input == 0)
+	{
+		fputc('0', stream);
+		count++;
+		return (count);
+	}
+
+	int div = 1;
+	while (div <= input / 10)
+		div *= 10;
+
+	while (div > 0)
+	{
+		int digit = input / div;
+		fputc('0' + digit, stream);
+		count++;
+		input %= div;
+		div /= 10;
+	}
+
+	return (count);
+}
+
