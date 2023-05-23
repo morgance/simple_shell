@@ -95,4 +95,38 @@ int print_deci(int input, int filed)
 
 	return (count);
 }
+/**
+ * _numcon - converter function
+ * @num:number
+ * @base:base
+ * @flags:argument flags
+ *
+ * Return:string
+ */
+char *_numcon(long int num, int base, int flags)
+{
+	static char fer[50];
+	const char *digits = (flags & CONVERT_LOWERCASE) ? "0123456789abcdef" : "0123456789ABCDEF";
+	bool isNegative = false;
+	int index = 49;
+
+	if (!(flags & CONVERT_UNSIGNED) && num < 0)
+	{
+		isNegative = true;
+		num = -num;
+	}
+
+	fer[index--] = '\0';
+
+	do {
+		fer[index--] = digits[num % base];
+		num /= base;
+	} while (num != 0);
+
+	if (isNegative)
+		fer[index--] = '-';
+
+	return (&fer[index + 1]);
+}
+
 
