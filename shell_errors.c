@@ -122,7 +122,14 @@ void remove_comms(char *addr)
 	if (commentf)
 	{
 		int i = j - 1;
-
+		while (i >= 0 && addr[i] == ' ')
+		{
+			addr[i] = '\0';
+			i--;
+		}
+	}
+}
+/**
  * _numcon - converter function
  * @num:number
  * @base:base
@@ -158,10 +165,4 @@ char *_numcon(long int num, int base, int flags)
 
 
 
-		while (i >= 0 && addr[i] == ' ')
-		{
-			addr[i] = '\0';
-			i--;
-		}
-	}
-}
+		
