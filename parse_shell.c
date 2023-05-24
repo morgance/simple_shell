@@ -51,7 +51,7 @@ char *dupli_char(char *pstrn, int sindx, int spinx)
  * @pstrn:PATH string
  * @cmd:cmd to find
  *
- * Return:path of cmd 
+ * Return:path of cmd
  */
 char *chk_path(data_s *data, char *pstrn, char *cmd)
 {
