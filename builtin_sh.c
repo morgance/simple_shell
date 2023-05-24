@@ -68,12 +68,12 @@ int set_alias(data_s *data, char *n)
     return (ali);
 }
 /**
- * print_alias - prints an alias string
+ * print_alias_str - prints an alias string
  * @pro:alias node
  *
- * Return: Always 0 on success, 1 on error
+ * Return:0 if successful,1 otherwise
  */
-int print_alias(link_s *pro)
+int print_alias_str(link_s *pro)
 {
     if (pro)
     {
@@ -89,6 +89,48 @@ int print_alias(link_s *pro)
     }
     return (1);
 }
+/**
+ * alias_sh - mimics the alias builtin
+ * @data: Structure arguments
+ *
+ *  Return:0
+ */
+int alias_sh(info_t *info)
+{
+	int i;
+	char *j;
+	link_s *pro;
+
+	if (data->argc == 1)
+	{
+		pro = data->alias;
+		while (pro)
+		{
+			print_alias_str(pro);
+			pro = pro->next;
+		}
+		return (0);
+	}
+
+	for (i = 1; data->argv[i]; i++)
+	{
+		j = strchr(data->argv[i], '=');
+		if (j)
+		{
+			*j = '\0';
+			set_alias(data, data->argv[i]);
+			*j = '=';
+		}
+		else
+		{
+			pro = str_strts(info->alias, data->argv[i], '=');
+			print_alias(pro);
+		}
+	}
+
+	return (0);
+}
+
 
 
 
