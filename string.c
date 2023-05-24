@@ -23,7 +23,7 @@ char *get_string_file(data_s *data)
 }
 
 /**
- * write_history - creates a file, or appends to an existing file
+ * write_string - creates a file, or appends to an existing file
  * @data: the parameter struct
  *
  * Return: 1 on success, else -1

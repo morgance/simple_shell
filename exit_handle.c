@@ -36,31 +36,31 @@ int exit_handle(data_s *data)
  * @data: Structure containing potential arguments
  * Return: Always 0
  */
-int mkdir(data_s *data)
+int mkdir_process(data_s *data)
 {
 	char *dir;
 	char buffer[1024];
 	int chmod_ret;
 
 	if (getcwd(buffer, sizeof(buffer)) == NULL)
-		_puts("TODO: >>getcwd failure emsg here<<\n");
+		print_inp("TODO: >>getcwd failure emsg here<<\n");
 
 	if (!data->argv[1])
 	{
 		dir = _getenv(data, "SCHOOL=");
 		if (!dir)
-			dir = _getenv(data, "PWD=") ? _getenv(info, "PWD=") : "/";
+			dir = _getenv(data, "PWD=") ? _getenv(data, "PWD=") : "/";
 	}
 	else if (_strcmp(data->argv[1], "-") == 0)
 	{
 		dir = _getenv(data, "OLDPWD=");
 		if (!dir)
 		{
-			_puts(buffer);
+			print_inp(buffer);
 			_putchar('\n');
 			return (1);
 		}
-		_puts(dir);
+		print_inp(dir);
 		_putchar('\n');
 	}
 	else
@@ -70,12 +70,12 @@ int mkdir(data_s *data)
 	if (chmod_ret == -1)
 	{
 		print_error(data, "don't cp to ");
-		_eputs(dir);
+		print_inp(dir);
 		_eputchar('\n');
 	}
 	else
 	{
-		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
+		_setenv(data, "OLDPWD", _getenv(data, "PWD="));
 		if (getcwd(buffer, sizeof(buffer)) != NULL)
 			_setenv(data, "PWD", buffer);
 	}
