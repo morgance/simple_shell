@@ -55,7 +55,7 @@ char *starts_with(const char *haystack, const char *needle)
 	}
 
 	if (*needle == '\0')
-		return (char *)haystack;
+		return ((char *)haystack);
 	else
 		return (NULL);
 }
@@ -72,15 +72,10 @@ char *_strcat(char *dest, const char *src)
 
 	while (*dest)
 		dest++;
-	
+
 	while (*src)
 		*dest++ = *src++;
-	
+
 	*dest = '\0';
-	
 	return (prim);
 }
-
-
-
-
