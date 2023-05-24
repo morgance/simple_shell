@@ -39,4 +39,33 @@ int unset_alias(data_s *data, char *n)
 
     return (pk);
 }
+/**
+ * set_alias - sets alias
+ * @data:parameter struct
+ * @n:the string alias
+ *
+ * Return:0 if successful, 1 otherwise
+ */
+int set_alias(data_s *data, char *n)
+{
+    char *j;
+
+    j = strchr(n, '=');
+    if (!j)
+        return (1);
+
+    if (!*(j + 1))
+        return (unset_alias(data, n));
+
+    *j = '\0';  /* Replace '=' with null terminator to isolate the alias*/
+
+    /* Unset the existing alias (if any) and add the new alias*/
+    unset_alias(data, n);
+    int ali = node_end(&(data->alias), n, 0) == NULL;
+
+    *j = '=';  /* Restore the original string*/
+
+    return (ali);
+}
+
 
