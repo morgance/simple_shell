@@ -49,7 +49,7 @@ char *starts_with(const char *haystack, const char *needle)
 	while (*needle && *haystack)
 	{
 		if (*needle != *haystack)
-			return NULL;
+			return (NULL);
 		needle++;
 		haystack++;
 	}
@@ -57,8 +57,30 @@ char *starts_with(const char *haystack, const char *needle)
 	if (*needle == '\0')
 		return (char *)haystack;
 	else
-		return NULL;
+		return (NULL);
 }
+/**
+ * _strcat - concatenates two strings
+ * @dest:destination buffer
+ * @src:source buffer
+ *
+ * Return: pointer to destination buffer
+ */
+char *_strcat(char *dest, const char *src)
+{
+	char *prim = dest;
+
+	while (*dest)
+		dest++;
+	
+	while (*src)
+		*dest++ = *src++;
+	
+	*dest = '\0';
+	
+	return (prim);
+}
+
 
 
 
