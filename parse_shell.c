@@ -15,4 +15,35 @@ int is_exec(data_s *data, char *path)
 
 	return (S_ISREG(st.st_mode));
 }
+/**
+ * dupli_char - duplicates characters
+ * @pstrn: the PATH string
+ * @sindx: starting index
+ * @spinx: stopping index
+ *
+ * Return: pointer to new buffer
+ */
+char *dupli_char(char *pstrn, int sindx, int spinx)
+{
+	int i, j;
+	char *pro;
+
+	pro = malloc((spinx - sindx + 1) * sizeof(char));
+	if (pro == NULL)
+		return (NULL);
+
+	j = 0;
+	for (i = sindx; i < spinx; i++)
+	{
+		if (pstrn[i] != ':')
+		{
+			pro[j] = pstrn[i];
+			j++;
+		}
+	}
+
+	pro[j] = '\0';
+	return (pro);
+}
+
 
