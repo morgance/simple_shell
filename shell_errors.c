@@ -99,7 +99,6 @@ int print_deci(int input, int filed)
 	return (count);
 }
 /**
-<<<<<<< HEAD
  * remove_comms - replaces first instance '#' with '\0'
  * @addr:address of the string
  *
@@ -123,7 +122,7 @@ void remove_comms(char *addr)
 	if (commentf)
 	{
 		int i = j - 1;
-=======
+
  * _numcon - converter function
  * @num:number
  * @base:base
@@ -157,7 +156,7 @@ char *_numcon(long int num, int base, int flags)
 	return (&fer[index + 1]);
 }
 
->>>>>>> b7701f740093fc6e37d7170be051f52faac376a2
+
 
 		while (i >= 0 && addr[i] == ' ')
 		{
