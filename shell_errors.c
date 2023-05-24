@@ -122,6 +122,7 @@ void remove_comms(char *addr)
 	if (commentf)
 	{
 		int i = j - 1;
+
 		while (i >= 0 && addr[i] == ' ')
 		{
 			addr[i] = '\0';
@@ -140,6 +141,7 @@ void remove_comms(char *addr)
 char *_numcon(long int num, int base, int flags)
 {
 	static char fer[50];
+
 	const char *digits = (flags & CONVERT_LOWERCASE) ? "0123456789abcdef" : "0123456789ABCDEF";
 	bool isNegative = false;
 	int index = 49;
@@ -159,10 +161,5 @@ char *_numcon(long int num, int base, int flags)
 
 	if (isNegative)
 		fer[index--] = '-';
-
 	return (&fer[index + 1]);
 }
-
-
-
-		
