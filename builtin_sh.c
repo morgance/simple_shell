@@ -67,5 +67,28 @@ int set_alias(data_s *data, char *n)
 
     return (ali);
 }
+/**
+ * print_alias - prints an alias string
+ * @pro:alias node
+ *
+ * Return: Always 0 on success, 1 on error
+ */
+int print_alias(link_s *pro)
+{
+    if (pro)
+    {
+        char *j = strchr(pro->srt, '=');
+        if (j)
+        {
+            size_t alias_length = j - pro->srt;
+            _putchar("%.*s '", (int)alias_length, pro->srt);
+            print_inp(j + 1);
+            print_inp("'\n");
+            return (0);
+        }
+    }
+    return (1);
+}
+
 
 
