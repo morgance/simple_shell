@@ -160,4 +160,11 @@ int bfree(void **ptr);
 char *get_string_file(info_t *info);
 int write_string(info_t *info);
 int read_string(info_t *info);
+int is_exec(data_s *data, char *path);
+char *dupli_char(char *pstrn, int sindx, int spinx);
+char *chk_path(data_s *data, char *pstrn, char *cmd);
+int _strlen(char *str);
+int _strcmp(char *s1, char *s2);
+char *starts_with(const char *haystack, const char *needle);
+char *_strcat(char *dest, const char *src);
 #endif
