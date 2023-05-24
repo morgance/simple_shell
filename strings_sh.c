@@ -37,5 +37,28 @@ int _strcmp(char *s1, char *s2)
 	else
 		return (*s1 < *s2 ? -1 : 1);
 }
+/**
+ * starts_with - checks if needle starts with haystack
+ * @haystack: string to search
+ * @needle: substring to find
+ *
+ * Return: address of next char of haystack or NULL
+ */
+char *starts_with(const char *haystack, const char *needle)
+{
+	while (*needle && *haystack)
+	{
+		if (*needle != *haystack)
+			return NULL;
+		needle++;
+		haystack++;
+	}
+
+	if (*needle == '\0')
+		return (char *)haystack;
+	else
+		return NULL;
+}
+
 
 
