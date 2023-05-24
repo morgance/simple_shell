@@ -128,7 +128,7 @@ int vars_str(data_s *data)
 			}
 			else
 			{
-				_string_str(&data->argv[y], duplic_str(""));
+				_string_rp(&data->argv[y], duplic_str(""));
 			}
 		}
 	}

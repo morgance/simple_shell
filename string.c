@@ -2,15 +2,15 @@
 
 /**
  * get_string_file - gets the string of a file
- * @info: parameter struct
+ * @data: parameter struct
  *
  * Return: allocated strings containing file
  */
-char *get_string_file(info_t *info)
+char *get_string_file(data_s *data)
 {
 	char *buf, *dir;
 
-	dir = _getenv(info, "SCHOOL=");
+	dir = _getenv(data, "SCHOOL=");
 	if (!dir)
 		return (NULL);
 	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(STR_FILE) + 2));
@@ -24,14 +24,14 @@ char *get_string_file(info_t *info)
 
 /**
  * write_history - creates a file, or appends to an existing file
- * @info: the parameter struct
+ * @data: the parameter struct
  *
  * Return: 1 on success, else -1
  */
-int write_string(info_t *info)
+int write_string(data_ *data)
 {
 	int fd;
-	char *filename = get_string_file(info);
+	char *filename = get_string_file(data);
 	list_t *node = NULL;
 
 	if (!filename)
@@ -43,7 +43,7 @@ int write_string(info_t *info)
 	if (fd == -1)
 		return (-1);
 
-	for (node = info->string; node; node = node->nexty)
+	for (node = data->string; node; node = node->next)
 	{
 		if (_putsfd(node->str, fd) == -1)
 		{
@@ -57,7 +57,7 @@ int write_string(info_t *info)
 		}
 	}
 
-	if (_putfd(BUF_FLUSH, fd) == -1)
+	if (_putfd(FLUSH_BUFF, fd) == -1)
 	{
 		close(fd);
 		return (-1);
@@ -69,17 +69,17 @@ int write_string(info_t *info)
 
 /**
  * read_string - reads history from file
- * @info: the parameter struct
+ * @data: the parameter struct
  *
  * Return: strngcount on success, 0 otherwise
  */
-int read_string(info_t *info)
+int read_string(data_s *data)
 {
 	int i, last = 0, linecount = 0;
 	int fd;
 	ssize_t rdlen, fsize = 0;
 	struct stat st;
-	char *buf = NULL, *filename = get_string_file(info);
+	char *buf = NULL, *filename = get_string_file(data);
 
 	if (!filename)
 		return (0);
@@ -117,21 +117,21 @@ int read_string(info_t *info)
 		if (buf[i] == '\n')
 		{
 			buf[i] = '\0';
-			build_string_list(info, buf + last, linecount++);
+			build_string_list(data, buf + last, linecount++);
 			last = i + 1;
 		}
 	}
 
 	if (last != i)
-		 build_string_list(info, buf + last, linecount++);
+		 build_string_list(data, buf + last, linecount++);
 
 	free(buf);
 	info->strcount = linecount;
 
-	while (info->strng-- >= STR_MAX)
-		delete_node_at_index(&(info->history), 0);
+	while (data->strng-- >= STR_MAX)
+		delete_node_at_index(&(data->former_n), 0);
 
-	renumber_string(info);
+	renumber_string(data);
 
-	return (info->strcount);
+	return (data->strcount);
 }
