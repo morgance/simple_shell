@@ -139,7 +139,7 @@ void st_check(data_s *data, char *chbf, size_t leng, size_t aj, size_t *ap);
 int alias_rep(data_s *data);
 int vars_str(data_s *data);
 int _string_rp(char **old_str, char *new_str);
-int collective(info_s *info);
+int collective(data_s *data);
 int _isalpha(int c);
 int _atoi(char *s);
 int is_lim(char c, char *lim);
