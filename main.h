@@ -148,7 +148,7 @@ void set_data(data_s *data, char **ph);
 void free_strct(data_s *data, int pst);
 int set_environment_variable(char **env, const char *name, const char *value);
 int exit_handle(data_s *data);
-int mkdir(data_s *data);
+int mkdir_process(data_s *data);
 char *_strprint(char *dest, const char *src, int n);
 char *_strcpy(char *dest, char *src, int n);
 char **get_env(data_s *data);
