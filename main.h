@@ -83,6 +83,11 @@ typedef struct datainfo
 	link_s *_env;
 	unsigned int err_count;
 } data_s;
+
+#define INFO_INIT \
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+	0, 0, 0}
+
 /**
  * struct built - builtin string
  * @comm:builtin command
