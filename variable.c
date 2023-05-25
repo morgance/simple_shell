@@ -113,7 +113,7 @@ int vars_str(data_s *data)
 		}
 		else if (!strcmp(data->argv[y], "$$"))
 		{
-			_string_rp(&(data->argv[y]), duplic_str(_numcon(getpid(), 10, 0)))
+			_string_rp(&(data->argv[y]), duplic_str(_numcon(getpid(), 10, 0)));
 		}
 		else
 		{
