@@ -3,13 +3,13 @@
 
 /**
  * collective - checks if the shell is running in collective mode
- * @info: pointer to info_t struct
+ * @data: pointer to info_t struct
  *
  * Return: 1 if running in collective mode, 0 otherwise
  */
-int collective(info_t *info)
+int collective(data_s *data)
 {
-	return (issatty(STDIN_FILENO) && info->readfd <= 2);
+	return (issatty(STDIN_FILENO) && data->read_in <= 2);
 }
 
 /**
