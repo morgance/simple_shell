@@ -2,15 +2,15 @@
 
 /**
  * get_string_file - gets the string of a file
- * @data: parameter struct
+ * @info: parameter struct
  *
  * Return: allocated strings containing file
  */
-char *get_string_file(data_s *data)
+char *get_string_file(info_t *info)
 {
 	char *buf, *dir;
 
-	dir = _getenv(data, "SCHOOL=");
+	dir = _getenv(info, "SCHOOL=");
 	if (!dir)
 		return (NULL);
 	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(STR_FILE) + 2));
@@ -28,10 +28,10 @@ char *get_string_file(data_s *data)
  *
  * Return: 1 on success, else -1
  */
-int write_string(data_ *data)
+int write_string(info_t *info)
 {
 	int fd;
-	char *filename = get_string_file(data);
+	char *filename = get_string_file(info);
 	list_t *node = NULL;
 
 	if (!filename)
@@ -43,7 +43,7 @@ int write_string(data_ *data)
 	if (fd == -1)
 		return (-1);
 
-	for (node = data->string; node; node = node->next)
+	for (node = info->string; node; node = node->next)
 	{
 		if (_putsfd(node->str, fd) == -1)
 		{
@@ -117,21 +117,21 @@ int read_string(data_s *data)
 		if (buf[i] == '\n')
 		{
 			buf[i] = '\0';
-			build_string_list(data, buf + last, linecount++);
+			build_string_list(info, buf + last, linecount++);
 			last = i + 1;
 		}
 	}
 
 	if (last != i)
-		 build_string_list(data, buf + last, linecount++);
+		 build_string_list(info, buf + last, linecount++);
 
 	free(buf);
 	info->strcount = linecount;
 
-	while (data->strng-- >= STR_MAX)
-		delete_node_at_index(&(data->former_n), 0);
+	while (info->strng-- >= STR_MAX)
+		delete_node_at_index(&(info->former_n), 0);
 
-	renumber_string(data);
+	renumber_string(info);
 
-	return (data->strcount);
+	return (info->strcount);
 }

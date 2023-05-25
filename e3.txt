@@ -1,0 +1,894 @@
+_atoi.c: In function ‘collective’:
+_atoi.c:12:10: error: implicit declaration of function ‘issatty’; did you mean ‘isatty’? [-Werror=implicit-function-declaration]
+   12 |  return (issatty(STDIN_FILENO) && data->read_in <= 2);
+      |          ^~~~~~~
+      |          isatty
+cc1: all warnings being treated as errors
+builtin_sh.c: In function ‘_history’:
+builtin_sh.c:10:17: error: passing argument 1 of ‘print_elem’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   10 |  print_elem(data->former_n);
+      |             ~~~~^~~~~~~~~~
+      |                 |
+      |                 link_s * {aka struct linkedlst *}
+In file included from builtin_sh.c:1:
+main.h:135:30: note: expected ‘const int *’ but argument is of type ‘link_s *’ {aka ‘struct linkedlst *’}
+  135 | size_t print_elem(const int *head);
+      |                   ~~~~~~~~~~~^~~~
+builtin_sh.c: In function ‘unset_alias’:
+builtin_sh.c:32:40: error: passing argument 2 of ‘str_strts’ makes integer from pointer without a cast [-Werror=int-conversion]
+   32 |  link_s *node = str_strts(data->alias, n, -1);
+      |                                        ^
+      |                                        |
+      |                                        char *
+In file included from builtin_sh.c:1:
+main.h:136:9: note: expected ‘char’ but argument is of type ‘char *’
+  136 | link_s *str_strts(link_s *head, const char pfix, char n);
+      |         ^~~~~~~~~
+builtin_sh.c:32:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   32 |  link_s *node = str_strts(data->alias, n, -1);
+      |  ^~~~~~
+builtin_sh.c: In function ‘set_alias’:
+builtin_sh.c:64:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   64 |  int ali = node_end(&(data->alias), n, 0) == NULL;
+      |  ^~~
+builtin_sh.c: In function ‘print_alias_str’:
+builtin_sh.c:84:13: error: passing argument 1 of ‘_putchar’ makes integer from pointer without a cast [-Werror=int-conversion]
+   84 |    _putchar("%.*s '", (int)alias_length, pro->srt);
+      |             ^~~~~~~~
+      |             |
+      |             char *
+In file included from builtin_sh.c:1:
+main.h:142:19: note: expected ‘char’ but argument is of type ‘char *’
+  142 | int _putchar(char c);
+      |              ~~~~~^
+builtin_sh.c:84:4: error: too many arguments to function ‘_putchar’
+   84 |    _putchar("%.*s '", (int)alias_length, pro->srt);
+      |    ^~~~~~~~
+In file included from builtin_sh.c:1:
+main.h:142:5: note: declared here
+  142 | int _putchar(char c);
+      |     ^~~~~~~~
+builtin_sh.c: In function ‘alias_sh’:
+builtin_sh.c:126:20: error: ‘info’ undeclared (first use in this function)
+  126 |    pro = str_strts(info->alias, data->argv[i], '=');
+      |                    ^~~~
+builtin_sh.c:126:20: note: each undeclared identifier is reported only once for each function it appears in
+builtin_sh.c:126:43: error: passing argument 2 of ‘str_strts’ makes integer from pointer without a cast [-Werror=int-conversion]
+  126 |    pro = str_strts(info->alias, data->argv[i], '=');
+      |                                 ~~~~~~~~~~^~~
+      |                                           |
+      |                                           char *
+In file included from builtin_sh.c:1:
+main.h:136:9: note: expected ‘char’ but argument is of type ‘char *’
+  136 | link_s *str_strts(link_s *head, const char pfix, char n);
+      |         ^~~~~~~~~
+builtin_sh.c:127:4: error: implicit declaration of function ‘print_alias’; did you mean ‘print_inp’? [-Werror=implicit-function-declaration]
+  127 |    print_alias(pro);
+      |    ^~~~~~~~~~~
+      |    print_inp
+cc1: all warnings being treated as errors
+data_info.c: In function ‘set_data’:
+data_info.c:26:17: error: assignment to ‘char’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+   26 |  data->filename = ph[0];
+      |                 ^
+data_info.c:30:16: error: implicit declaration of function ‘spl_str’ [-Werror=implicit-function-declaration]
+   30 |   data->argv = spl_str(data->str, "\t");
+      |                ^~~~~~~
+data_info.c:30:14: error: assignment to ‘char **’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+   30 |   data->argv = spl_str(data->str, "\t");
+      |              ^
+data_info.c: In function ‘free_strct’:
+data_info.c:73:24: error: expected ‘;’ before ‘data’
+   73 |   free_sh(data->_envi_)
+      |                        ^
+      |                        ;
+   74 |    data->_envi_ = NULL;
+      |    ~~~~                 
+cc1: all warnings being treated as errors
+environ_flags.c: In function ‘print_environment’:
+environ_flags.c:12:2: error: ‘for’ loop initial declarations are only allowed in C99 or C11 mode
+   12 |  for (int i = 0; env[i] != NULL; i++)
+      |  ^~~
+environ_flags.c:12:2: note: use option ‘-std=c99’, ‘-std=gnu99’, ‘-std=c11’ or ‘-std=gnu11’ to compile your code
+environ_flags.c: In function ‘_printenv’:
+environ_flags.c:23:26: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘env’; did you mean ‘_env’?
+   23 |  print_environment(data->env);
+      |                          ^~~
+      |                          _env
+environ_flags.c: In function ‘getenv_value’:
+environ_flags.c:39:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   39 |  size_t name_len = strlen(name);
+      |  ^~~~~~
+environ_flags.c:41:2: error: ‘for’ loop initial declarations are only allowed in C99 or C11 mode
+   41 |  for (int i = 0; env[i] != NULL; i++)
+      |  ^~~
+environ_flags.c:43:21: error: request for member ‘name’ in something not a structure or union
+   43 |   if (strncmp(env[i]. name, name_len) == 0 && env[i][name_len]
+      |                     ^
+environ_flags.c:43:29: error: passing argument 2 of ‘strncmp’ makes pointer from integer without a cast [-Werror=int-conversion]
+   43 |   if (strncmp(env[i]. name, name_len) == 0 && env[i][name_len]
+      |                             ^~~~~~~~
+      |                             |
+      |                             size_t {aka long unsigned int}
+In file included from main.h:13,
+                 from environ_flags.c:1:
+/usr/include/string.h:140:51: note: expected ‘const char *’ but argument is of type ‘size_t’ {aka ‘long unsigned int’}
+  140 | extern int strncmp (const char *__s1, const char *__s2, size_t __n)
+      |                                       ~~~~~~~~~~~~^~~~
+environ_flags.c:43:7: error: too few arguments to function ‘strncmp’
+   43 |   if (strncmp(env[i]. name, name_len) == 0 && env[i][name_len]
+      |       ^~~~~~~
+In file included from main.h:13,
+                 from environ_flags.c:1:
+/usr/include/string.h:140:12: note: declared here
+  140 | extern int strncmp (const char *__s1, const char *__s2, size_t __n)
+      |            ^~~~~~~
+environ_flags.c:43:63: error: expected ‘)’ before ‘return’
+   43 |   if (strncmp(env[i]. name, name_len) == 0 && env[i][name_len]
+      |      ~                                                        ^
+      |                                                               )
+   44 |     return (&env[i][name_len + 1]);
+      |     ~~~~~~                                                     
+environ_flags.c:45:2: error: expected expression before ‘}’ token
+   45 |  }
+      |  ^
+environ_flags.c: In function ‘set_environment_variable’:
+environ_flags.c:63:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   63 |  size_t name_len = strlen(name);
+      |  ^~~~~~
+environ_flags.c:66:53: error: expected ‘)’ before ‘;’ token
+   66 |  char *new_env_var = malloc(name_len + value_len + 2;
+      |                                                     ^
+      |                                                     )
+environ_flags.c:82:1: error: expected ‘,’ or ‘;’ before ‘}’ token
+   82 | }
+      | ^
+environ_flags.c:82:1: error: expected declaration or statement at end of input
+environ_flags.c:66:8: error: unused variable ‘new_env_var’ [-Werror=unused-variable]
+   66 |  char *new_env_var = malloc(name_len + value_len + 2;
+      |        ^~~~~~~~~~~
+environ_flags.c:82: error: control reaches end of non-void function [-Werror=return-type]
+   82 | }
+      | 
+cc1: all warnings being treated as errors
+errors_sh.c: In function ‘_inputs’:
+errors_sh.c:13:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   13 |  int p;
+      |  ^~~
+errors_sh.c:15:18: error: subscripted value is neither array nor pointer nor vector
+   15 |  for (p = 0; strg[p] != '\0'; p++)
+      |                  ^
+errors_sh.c:16:15: error: subscripted value is neither array nor pointer nor vector
+   16 |   _charac(strg[p]);
+      |               ^
+cc1: all warnings being treated as errors
+exit_handle.c: In function ‘exit_handle’:
+exit_handle.c:15:21: error: implicit declaration of function ‘_erratoi’; did you mean ‘_atoi’? [-Werror=implicit-function-declaration]
+   15 |   int exit_status = _erratoi(data->argv[1]);
+      |                     ^~~~~~~~
+      |                     _atoi
+exit_handle.c:19:8: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘check’
+   19 |    data->check = 2;
+      |        ^~
+exit_handle.c:20:4: error: implicit declaration of function ‘print_error’; did you mean ‘find_error’? [-Werror=implicit-function-declaration]
+   20 |    print_error(data, "Unwanted number: ");
+      |    ^~~~~~~~~~~
+      |    find_error
+exit_handle.c:21:4: error: implicit declaration of function ‘_eputs’; did you mean ‘_inputs’? [-Werror=implicit-function-declaration]
+   21 |    _eputs(data->argv[1]);
+      |    ^~~~~~
+      |    _inputs
+exit_handle.c:22:4: error: implicit declaration of function ‘_eputchar’; did you mean ‘_putchar’? [-Werror=implicit-function-declaration]
+   22 |    _eputchar('\n');
+      |    ^~~~~~~~~
+      |    _putchar
+exit_handle.c:26:7: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘err_num’
+   26 |   data->err_num = exit_status;
+      |       ^~
+exit_handle.c:30:6: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘err_num’
+   30 |  data->err_num = (-1);
+      |      ^~
+exit_handle.c:11:6: error: unused variable ‘exit_check’ [-Werror=unused-variable]
+   11 |  int exit_check = 0;
+      |      ^~~~~~~~~~
+exit_handle.c: In function ‘mkdir_process’:
+exit_handle.c:50:9: error: too few arguments to function ‘_getenv’
+   50 |   dir = _getenv(data, "SCHOOL=");
+      |         ^~~~~~~
+In file included from exit_handle.c:1:
+main.h:166:5: note: declared here
+  166 | int _getenv(data_s *data, char *var, char *value);
+      |     ^~~~~~~
+exit_handle.c:52:10: error: too few arguments to function ‘_getenv’
+   52 |    dir = _getenv(data, "PWD=") ? _getenv(data, "PWD=") : "/";
+      |          ^~~~~~~
+In file included from exit_handle.c:1:
+main.h:166:5: note: declared here
+  166 | int _getenv(data_s *data, char *var, char *value);
+      |     ^~~~~~~
+exit_handle.c:52:34: error: too few arguments to function ‘_getenv’
+   52 |    dir = _getenv(data, "PWD=") ? _getenv(data, "PWD=") : "/";
+      |                                  ^~~~~~~
+In file included from exit_handle.c:1:
+main.h:166:5: note: declared here
+  166 | int _getenv(data_s *data, char *var, char *value);
+      |     ^~~~~~~
+exit_handle.c:56:9: error: too few arguments to function ‘_getenv’
+   56 |   dir = _getenv(data, "OLDPWD=");
+      |         ^~~~~~~
+In file included from exit_handle.c:1:
+main.h:166:5: note: declared here
+  166 | int _getenv(data_s *data, char *var, char *value);
+      |     ^~~~~~~
+exit_handle.c:69:14: error: too few arguments to function ‘chmod’
+   69 |  chmod_ret = chmod(dir);
+      |              ^~~~~
+In file included from main.h:8,
+                 from exit_handle.c:1:
+/usr/include/x86_64-linux-gnu/sys/stat.h:280:12: note: declared here
+  280 | extern int chmod (const char *__file, __mode_t __mode)
+      |            ^~~~~
+exit_handle.c:78:3: error: implicit declaration of function ‘_setenv’; did you mean ‘_getenv’? [-Werror=implicit-function-declaration]
+   78 |   _setenv(data, "OLDPWD", _getenv(data, "PWD="));
+      |   ^~~~~~~
+      |   _getenv
+exit_handle.c:78:27: error: too few arguments to function ‘_getenv’
+   78 |   _setenv(data, "OLDPWD", _getenv(data, "PWD="));
+      |                           ^~~~~~~
+In file included from exit_handle.c:1:
+main.h:166:5: note: declared here
+  166 | int _getenv(data_s *data, char *var, char *value);
+      |     ^~~~~~~
+cc1: all warnings being treated as errors
+function_exit.c: In function ‘_strprint’:
+function_exit.c:14:43: error: ‘i’ undeclared (first use in this function)
+   14 |  for (j = 0; j < n - 1 && src[j] != '\0'; i++)
+      |                                           ^
+function_exit.c:14:43: note: each undeclared identifier is reported only once for each function it appears in
+function_exit.c: In function ‘_strcpy’:
+function_exit.c:33:8: error: unused variable ‘s’ [-Werror=unused-variable]
+   33 |  char *s = dest;
+      |        ^
+cc1: all warnings being treated as errors
+get_env.c: In function ‘get_env’:
+get_env.c:10:25: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘env_changed’
+   10 |  if (!data->_env || data->env_changed)
+      |                         ^~
+get_env.c:12:16: error: implicit declaration of function ‘list_do_strings’ [-Werror=implicit-function-declaration]
+   12 |   data->_env = list_do_strings(data->_env);
+      |                ^~~~~~~~~~~~~~~
+get_env.c:12:14: error: assignment to ‘link_s *’ {aka ‘struct linkedlst *’} from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+   12 |   data->_env = list_do_strings(data->_env);
+      |              ^
+get_env.c:13:7: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘env_changed’
+   13 |   data->env_changed = 0;
+      |       ^~
+get_env.c:16:16: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘env’; did you mean ‘_env’?
+   16 |  return (data->env);
+      |                ^~~
+      |                _env
+get_env.c:25:1: error: ISO C forbids nested functions [-Werror=pedantic]
+   25 | int _getenv(data_s *data, char *var, char *value)
+      | ^~~
+get_env.c: In function ‘_getenv’:
+get_env.c:29:2: error: unknown type name ‘list_t’
+   29 |  list_t *node;
+      |  ^~~~~~
+get_env.c:40:7: error: assignment to ‘int *’ from incompatible pointer type ‘link_s *’ {aka ‘struct linkedlst *’} [-Werror=incompatible-pointer-types]
+   40 |  node = data->_env;
+      |       ^
+get_env.c:43:3: error: ‘n’ undeclared (first use in this function)
+   43 |   n = starts_with(node->srt, var);
+      |   ^
+get_env.c:43:3: note: each undeclared identifier is reported only once for each function it appears in
+get_env.c:43:23: error: request for member ‘srt’ in something not a structure or union
+   43 |   n = starts_with(node->srt, var);
+      |                       ^~
+get_env.c:44:12: error: invalid suffix "n" on integer constant
+   44 |   if (n && 8n == '=')
+      |            ^~
+get_env.c:46:13: error: request for member ‘srt’ in something not a structure or union
+   46 |    free(node->srt);
+      |             ^~
+get_env.c:47:8: error: request for member ‘srt’ in something not a structure or union
+   47 |    node->srt = buf;
+      |        ^~
+get_env.c:48:8: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘env_changed’
+   48 |    data->env_changed = 2;
+      |        ^~
+get_env.c:51:14: error: request for member ‘next’ in something not a structure or union
+   51 |   node = node->next;
+      |              ^~
+get_env.c:53:2: error: implicit declaration of function ‘add_node_end’; did you mean ‘node_end’? [-Werror=implicit-function-declaration]
+   53 |  add_node_end(&(info->_env), buf, 0);
+      |  ^~~~~~~~~~~~
+      |  node_end
+get_env.c:53:17: error: ‘info’ undeclared (first use in this function)
+   53 |  add_node_end(&(info->_env), buf, 0);
+      |                 ^~~~
+get_env.c:55:6: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘env_changed’
+   55 |  data->env_changed = 2;
+      |      ^~
+get_env.c:27:8: error: unused variable ‘p’ [-Werror=unused-variable]
+   27 |  char *p;
+      |        ^
+get_env.c: In function ‘get_env’:
+get_env.c:25:1: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   25 | int _getenv(data_s *data, char *var, char *value)
+      | ^~~
+get_env.c:57:1: error: expected declaration or statement at end of input
+   57 | }
+      | ^
+get_env.c:57: error: control reaches end of non-void function [-Werror=return-type]
+   57 | }
+      | 
+At top level:
+get_env.c:25:5: error: ‘_getenv’ defined but not used [-Werror=unused-function]
+   25 | int _getenv(data_s *data, char *var, char *value)
+      |     ^~~~~~~
+cc1: all warnings being treated as errors
+get_env_shell.c: In function ‘my_environ’:
+get_env_shell.c:10:23: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘environ’
+   10 |  char **environ = data->environ;
+      |                       ^~
+get_env_shell.c:18:2: error: ‘for’ loop initial declarations are only allowed in C99 or C11 mode
+   18 |  for (int j = 0; environ[j] != NULL; j++)
+      |  ^~~
+get_env_shell.c:18:2: note: use option ‘-std=c99’, ‘-std=gnu99’, ‘-std=c11’ or ‘-std=gnu11’ to compile your code
+get_env_shell.c: In function ‘exits_env’:
+get_env_shell.c:35:21: error: ‘data_s’ {aka ‘struct datainfo’} has no member named ‘env’; did you mean ‘_env’?
+   35 |  char **env = data->env;
+      |                     ^~~
+      |                     _env
+get_env_shell.c:42:7: error: implicit declaration of function ‘started_with’; did you mean ‘starts_with’? [-Werror=implicit-function-declaration]
+   42 |   if (started_with(*env, name))
+      |       ^~~~~~~~~~~~
+      |       starts_with
+get_env_shell.c: In function ‘print_lists_env’:
+get_env_shell.c:59:3: error: implicit declaration of function ‘_eputs’; did you mean ‘_inputs’? [-Werror=implicit-function-declaration]
+   59 |   _eputs("Incorrect number of arguments\n");
+      |   ^~~~~~
+      |   _inputs
+get_env_shell.c:63:6: error: implicit declaration of function ‘_lists_env’; did you mean ‘exits_env’? [-Werror=implicit-function-declaration]
+   63 |  if (_lists_env(data->argv[1], data->argv[2]) ==)
+      |      ^~~~~~~~~~
+      |      exits_env
+get_env_shell.c:63:49: error: expected expression before ‘)’ token
+   63 |  if (_lists_env(data->argv[1], data->argv[2]) ==)
+      |                                                 ^
+get_env_shell.c: In function ‘_erase_env’:
+get_env_shell.c:84:12: error: right-hand operand of comma expression has no effect [-Werror=unused-value]
+   84 |  for (j = 1, j < data->argc; i++)
+      |            ^
+get_env_shell.c:84:30: error: ‘i’ undeclared (first use in this function)
+   84 |  for (j = 1, j < data->argc; i++)
+      |                              ^
+get_env_shell.c:84:30: note: each undeclared identifier is reported only once for each function it appears in
+get_env_shell.c:84:33: error: expected ‘;’ before ‘)’ token
+   84 |  for (j = 1, j < data->argc; i++)
+      |                                 ^
+      |                                 ;
+get_env_shell.c:86:28: error: passing argument 1 of ‘_erase_env’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   86 |   if (_erase_env(data->argv[j]) != 0)
+      |                  ~~~~~~~~~~^~~
+      |                            |
+      |                            char *
+get_env_shell.c:74:24: note: expected ‘data_s *’ {aka ‘struct datainfo *’} but argument is of type ‘char *’
+   74 | int _erase_env(data_s *data)
+      |                ~~~~~~~~^~~~
+cc1: all warnings being treated as errors
+main.c: In function ‘main’:
+main.c:13:2: error: unknown type name ‘info_t’
+   13 |  info_t info[] = { INFO_INIT };
+      |  ^~~~~~
+main.c:13:20: error: ‘INFO_INIT’ undeclared (first use in this function)
+   13 |  info_t info[] = { INFO_INIT };
+      |                    ^~~~~~~~~
+main.c:13:20: note: each undeclared identifier is reported only once for each function it appears in
+main.c:23:22: error: invalid suffix "_RDONLY" on integer constant
+   23 |   fd = open(argv[1], 0_RDONLY);
+      |                      ^~~~~~~~
+main.c:26:8: error: ‘errno’ undeclared (first use in this function)
+   26 |    if (errno == EACCES)
+      |        ^~~~~
+main.c:3:1: note: ‘errno’ is defined in header ‘<errno.h>’; did you forget to ‘#include <errno.h>’?
+    2 | #include <fcntl.h>
+  +++ |+#include <errno.h>
+    3 | 
+main.c:26:17: error: ‘EACCES’ undeclared (first use in this function); did you mean ‘AT_EACCESS’?
+   26 |    if (errno == EACCES)
+      |                 ^~~~~~
+      |                 AT_EACCESS
+main.c:27:5: error: implicit declaration of function ‘exit’ [-Werror=implicit-function-declaration]
+   27 |     exit(126);
+      |     ^~~~
+main.c:27:5: error: incompatible implicit declaration of built-in function ‘exit’ [-Werror]
+main.c:3:1: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+    2 | #include <fcntl.h>
+  +++ |+#include <stdlib.h>
+    3 | 
+main.c:28:17: error: ‘ENOENT’ undeclared (first use in this function)
+   28 |    if (errno == ENOENT)
+      |                 ^~~~~~
+main.c:30:5: error: implicit declaration of function ‘_eputs’ [-Werror=implicit-function-declaration]
+   30 |     _eputs(argv[0]);
+      |     ^~~~~~
+main.c:33:5: error: implicit declaration of function ‘_eputchar’ [-Werror=implicit-function-declaration]
+   33 |     _eputchar('\n');
+      |     ^~~~~~~~~
+main.c:34:15: error: ‘BUF_FLUSH’ undeclared (first use in this function)
+   34 |     _eputchar(BUF_FLUSH);
+      |               ^~~~~~~~~
+main.c:37:12: error: ‘EXIT_FAILURE’ undeclared (first use in this function)
+   37 |    return (EXIT_FAILURE);
+      |            ^~~~~~~~~~~~
+main.c:39:10: error: request for member ‘readfd’ in something not a structure or union
+   39 |   info[0].readfd = fd;
+      |          ^
+main.c:42:2: error: implicit declaration of function ‘populate_env_list’ [-Werror=implicit-function-declaration]
+   42 |  populate_env_list(info);
+      |  ^~~~~~~~~~~~~~~~~
+main.c:43:2: error: implicit declaration of function ‘read_memory’ [-Werror=implicit-function-declaration]
+   43 |  read_memory(info);
+      |  ^~~~~~~~~~~
+main.c:44:2: error: implicit declaration of function ‘hsh’ [-Werror=implicit-function-declaration]
+   44 |  hsh(info, argv);
+      |  ^~~
+main.c:45:10: error: ‘EXIT_SUCCESS’ undeclared (first use in this function)
+   45 |  return (EXIT_SUCCESS);
+      |          ^~~~~~~~~~~~
+main.c:46:1: error: control reaches end of non-void function [-Werror=return-type]
+   46 | }
+      | ^
+cc1: all warnings being treated as errors
+parse_shell.c: In function ‘is_exec’:
+parse_shell.c:9:21: error: unused parameter ‘data’ [-Werror=unused-parameter]
+    9 | int is_exec(data_s *data, char *path)
+      |             ~~~~~~~~^~~~
+cc1: all warnings being treated as errors
+real_sh.c: In function ‘free_sh’:
+real_sh.c:29:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   29 |  char **j = strng;
+      |  ^~~~
+real_sh.c: In function ‘real_sh’:
+real_sh.c:64:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   64 |  unsigned int copy_size = old_ms < new_ms ? old_ms : new_ms;
+      |  ^~~~~~~~
+cc1: all warnings being treated as errors
+shell_errors.c: In function ‘print_msg’:
+shell_errors.c:50:10: error: passing argument 1 of ‘_inputs’ makes integer from pointer without a cast [-Werror=int-conversion]
+   50 |  _inputs(": ");
+      |          ^~~~
+      |          |
+      |          char *
+In file included from shell_errors.c:1:
+main.h:113:19: note: expected ‘char’ but argument is of type ‘char *’
+  113 | void _inputs(char strg);
+      |              ~~~~~^~~~
+shell_errors.c:52:10: error: passing argument 1 of ‘_inputs’ makes integer from pointer without a cast [-Werror=int-conversion]
+   52 |  _inputs(": ");
+      |          ^~~~
+      |          |
+      |          char *
+In file included from shell_errors.c:1:
+main.h:113:19: note: expected ‘char’ but argument is of type ‘char *’
+  113 | void _inputs(char strg);
+      |              ~~~~~^~~~
+shell_errors.c:53:20: error: passing argument 1 of ‘_inputs’ makes integer from pointer without a cast [-Werror=int-conversion]
+   53 |  _inputs(data->argv[0]);
+      |          ~~~~~~~~~~^~~
+      |                    |
+      |                    char *
+In file included from shell_errors.c:1:
+main.h:113:19: note: expected ‘char’ but argument is of type ‘char *’
+  113 | void _inputs(char strg);
+      |              ~~~~~^~~~
+shell_errors.c:54:10: error: passing argument 1 of ‘_inputs’ makes integer from pointer without a cast [-Werror=int-conversion]
+   54 |  _inputs(": ");
+      |          ^~~~
+      |          |
+      |          char *
+In file included from shell_errors.c:1:
+main.h:113:19: note: expected ‘char’ but argument is of type ‘char *’
+  113 | void _inputs(char strg);
+      |              ~~~~~^~~~
+shell_errors.c: In function ‘print_deci’:
+shell_errors.c:83:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   83 |  int div = 1;
+      |  ^~~
+shell_errors.c: In function ‘_numcon’:
+shell_errors.c:145:32: error: ‘CONVERT_LOWERCASE’ undeclared (first use in this function)
+  145 |  const char *digits = (flags & CONVERT_LOWERCASE) ? "0123456789abcdef" : "0123456789ABCDEF";
+      |                                ^~~~~~~~~~~~~~~~~
+shell_errors.c:145:32: note: each undeclared identifier is reported only once for each function it appears in
+shell_errors.c:149:16: error: ‘CONVERT_UNSIGNED’ undeclared (first use in this function)
+  149 |  if (!(flags & CONVERT_UNSIGNED) && num < 0)
+      |                ^~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+shell_lst.c: In function ‘node_new’:
+shell_lst.c:14:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   14 |  link_s *head = malloc(sizeof(link_s));
+      |  ^~~~~~
+shell_lst.c:31:5: error: assignment to ‘link_s **’ {aka ‘struct linkedlst **’} from incompatible pointer type ‘link_s *’ {aka ‘struct linkedlst *’} [-Werror=incompatible-pointer-types]
+   31 |  hd = head;
+      |     ^
+shell_lst.c: In function ‘node_end’:
+shell_lst.c:46:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   46 |  link_s *end_node = malloc(sizeof(link_s));
+      |  ^~~~~~
+shell_lst.c:52:10: error: statement with no effect [-Werror=unused-value]
+   52 |  end_node->ber ber;
+      |  ~~~~~~~~^~~~~
+shell_lst.c:52:15: error: expected ‘;’ before ‘ber’
+   52 |  end_node->ber ber;
+      |               ^~~~
+      |               ;
+shell_lst.c:42:52: error: unused parameter ‘ber’ [-Werror=unused-parameter]
+   42 | link_s *node_end(link_s **hd, const char *srt, int ber)
+      |                                                ~~~~^~~
+shell_lst.c: In function ‘del_node’:
+shell_lst.c:118:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+  118 |  link_s *pro = *dest;
+      |  ^~~~~~
+shell_lst.c: In function ‘free_nodes’:
+shell_lst.c:147:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+  147 |  link_s *current_node = *head;
+      |  ^~~~~~
+cc1: all warnings being treated as errors
+shell_lsts.c:59:26: error: type defaults to ‘int’ in declaration of ‘head’ [-Werror=implicit-int]
+   59 | size_t print_elem(const *head)
+      |                          ^~~~
+shell_lsts.c: In function ‘print_elem’:
+shell_lsts.c:65:25: error: request for member ‘ber’ in something not a structure or union
+   65 |   print_inp(_numcon(head->ber, 10, 0));
+      |                         ^~
+shell_lsts.c:68:17: error: request for member ‘srt’ in something not a structure or union
+   68 |   print_inp(head->srt ? head->srt : "(nil)");
+      |                 ^~
+shell_lsts.c:68:29: error: request for member ‘srt’ in something not a structure or union
+   68 |   print_inp(head->srt ? head->srt : "(nil)");
+      |                             ^~
+shell_lsts.c:70:14: error: request for member ‘next’ in something not a structure or union
+   70 |   head = head->next;
+      |              ^~
+shell_lsts.c: In function ‘str_strts’:
+shell_lsts.c:87:30: error: passing argument 2 of ‘starts_with’ makes pointer from integer without a cast [-Werror=int-conversion]
+   87 |   if (starts_with(head->srt, pfix))
+      |                              ^~~~
+      |                              |
+      |                              char
+In file included from shell_lsts.c:1:
+main.h:187:7: note: expected ‘const char *’ but argument is of type ‘char’
+  187 | char *starts_with(const char *haystack, const char *needle);
+      |       ^~~~~~~~~~~
+shell_lsts.c:89:37: error: passing argument 1 of ‘_strlen’ makes pointer from integer without a cast [-Werror=int-conversion]
+   89 |    if (n == -1 || head->srt[_strlen(pfix)] == c)
+      |                                     ^~~~
+      |                                     |
+      |                                     char
+In file included from shell_lsts.c:1:
+main.h:184:19: note: expected ‘char *’ but argument is of type ‘char’
+  184 | int _strlen(char *str);
+      |             ~~~~~~^~~
+shell_lsts.c:89:47: error: ‘c’ undeclared (first use in this function)
+   89 |    if (n == -1 || head->srt[_strlen(pfix)] == c)
+      |                                               ^
+shell_lsts.c:89:47: note: each undeclared identifier is reported only once for each function it appears in
+cc1: all warnings being treated as errors
+shloop.c: In function ‘hsh’:
+shloop.c:17:3: error: too few arguments to function ‘set_data’
+   17 |   set_data(data);
+      |   ^~~~~~~~
+In file included from shloop.c:1:
+main.h:157:6: note: declared here
+  157 | void set_data(data_s *data, char **ph);
+      |      ^~~~~~~~
+shloop.c:18:7: error: implicit declaration of function ‘interactive’ [-Werror=implicit-function-declaration]
+   18 |   if (interactive(data))
+      |       ^~~~~~~~~~~
+shloop.c:20:4: error: implicit declaration of function ‘_puts’; did you mean ‘puts’? [-Werror=implicit-function-declaration]
+   20 |    _puts("$ ");
+      |    ^~~~~
+      |    puts
+shloop.c:23:17: error: passing argument 1 of ‘get_index’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   23 |   r = get_index(data);
+      |                 ^~~~
+      |                 |
+      |                 data_s * {aka struct datainfo *}
+In file included from shloop.c:1:
+main.h:137:27: note: expected ‘link_s *’ {aka ‘struct linkedlst *’} but argument is of type ‘data_s *’ {aka ‘struct datainfo *’}
+  137 | ssize_t get_index(link_s *head, link_s *pnodes);
+      |                   ~~~~~~~~^~~~
+shloop.c:23:7: error: too few arguments to function ‘get_index’
+   23 |   r = get_index(data);
+      |       ^~~~~~~~~
+In file included from shloop.c:1:
+main.h:137:9: note: declared here
+  137 | ssize_t get_index(link_s *head, link_s *pnodes);
+      |         ^~~~~~~~~
+shloop.c:27:18: error: ‘find’ undeclared (first use in this function)
+   27 |    builtin_ret = find builtin(data);
+      |                  ^~~~
+shloop.c:27:18: note: each undeclared identifier is reported only once for each function it appears in
+shloop.c:27:22: error: expected ‘;’ before ‘builtin’
+   27 |    builtin_ret = find builtin(data);
+      |                      ^~~~~~~~
+      |                      ;
+shloop.c:29:5: error: implicit declaration of function ‘find_chmod’ [-Werror=implicit-function-declaration]
+   29 |     find_chmod(data);
+      |     ^~~~~~~~~~
+shloop.c:36:3: error: implicit declaration of function ‘free_data’; did you mean ‘set_data’? [-Werror=implicit-function-declaration]
+   36 |   free_data(data, 0);
+      |   ^~~~~~~~~
+      |   set_data
+shloop.c: In function ‘find_path’:
+shloop.c:53:2: error: unknown type name ‘path_table’
+   53 |  path_table biultintbl[] = {
+      |  ^~~~~~~~~~
+shloop.c:54:3: error: braces around scalar initializer [-Werror]
+   54 |   {"list", _mylisy},
+      |   ^
+shloop.c:54:3: note: (near initialization for ‘biultintbl[0]’)
+shloop.c:54:4: error: initialization of ‘int’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+   54 |   {"list", _mylisy},
+      |    ^~~~~~
+shloop.c:54:4: note: (near initialization for ‘biultintbl[0]’)
+shloop.c:54:12: error: ‘_mylisy’ undeclared (first use in this function)
+   54 |   {"list", _mylisy},
+      |            ^~~~~~~
+shloop.c:54:12: error: excess elements in scalar initializer [-Werror]
+shloop.c:54:12: note: (near initialization for ‘biultintbl[0]’)
+shloop.c:54:3: error: initializer element is not computable at load time [-Werror=pedantic]
+   54 |   {"list", _mylisy},
+      |   ^
+shloop.c:55:3: error: braces around scalar initializer [-Werror]
+   55 |   {"chmod", _mychmod},
+      |   ^
+shloop.c:55:3: note: (near initialization for ‘biultintbl[1]’)
+shloop.c:55:4: error: initialization of ‘int’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+   55 |   {"chmod", _mychmod},
+      |    ^~~~~~~
+shloop.c:55:4: note: (near initialization for ‘biultintbl[1]’)
+shloop.c:55:13: error: ‘_mychmod’ undeclared (first use in this function); did you mean ‘fchmod’?
+   55 |   {"chmod", _mychmod},
+      |             ^~~~~~~~
+      |             fchmod
+shloop.c:55:13: error: excess elements in scalar initializer [-Werror]
+shloop.c:55:13: note: (near initialization for ‘biultintbl[1]’)
+shloop.c:55:3: error: initializer element is not computable at load time [-Werror=pedantic]
+   55 |   {"chmod", _mychmod},
+      |   ^
+shloop.c:56:3: error: braces around scalar initializer [-Werror]
+   56 |   {"main", _mymain},
+      |   ^
+shloop.c:56:3: note: (near initialization for ‘biultintbl[2]’)
+shloop.c:56:4: error: initialization of ‘int’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+   56 |   {"main", _mymain},
+      |    ^~~~~~
+shloop.c:56:4: note: (near initialization for ‘biultintbl[2]’)
+shloop.c:56:12: error: ‘_mymain’ undeclared (first use in this function); did you mean ‘main’?
+   56 |   {"main", _mymain},
+      |            ^~~~~~~
+      |            main
+shloop.c:56:12: error: excess elements in scalar initializer [-Werror]
+shloop.c:56:12: note: (near initialization for ‘biultintbl[2]’)
+shloop.c:56:3: error: initializer element is not computable at load time [-Werror=pedantic]
+   56 |   {"main", _mymain},
+      |   ^
+shloop.c:57:3: error: braces around scalar initializer [-Werror]
+   57 |   {"memory", _mymemory},
+      |   ^
+shloop.c:57:3: note: (near initialization for ‘biultintbl[3]’)
+shloop.c:57:4: error: initialization of ‘int’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+   57 |   {"memory", _mymemory},
+      |    ^~~~~~~~
+shloop.c:57:4: note: (near initialization for ‘biultintbl[3]’)
+shloop.c:57:14: error: ‘_mymemory’ undeclared (first use in this function)
+   57 |   {"memory", _mymemory},
+      |              ^~~~~~~~~
+shloop.c:57:14: error: excess elements in scalar initializer [-Werror]
+shloop.c:57:14: note: (near initialization for ‘biultintbl[3]’)
+shloop.c:57:3: error: initializer element is not computable at load time [-Werror=pedantic]
+   57 |   {"memory", _mymemory},
+      |   ^
+shloop.c:58:3: error: braces around scalar initializer [-Werror]
+   58 |   {"sudo", _mysudo},
+      |   ^
+shloop.c:58:3: note: (near initialization for ‘biultintbl[4]’)
+shloop.c:58:4: error: initialization of ‘int’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+   58 |   {"sudo", _mysudo},
+      |    ^~~~~~
+shloop.c:58:4: note: (near initialization for ‘biultintbl[4]’)
+shloop.c:58:12: error: ‘_mysudo’ undeclared (first use in this function)
+   58 |   {"sudo", _mysudo},
+      |            ^~~~~~~
+shloop.c:58:12: error: excess elements in scalar initializer [-Werror]
+shloop.c:58:12: note: (near initialization for ‘biultintbl[4]’)
+shloop.c:58:3: error: initializer element is not computable at load time [-Werror=pedantic]
+   58 |   {"sudo", _mysudo},
+      |   ^
+shloop.c:59:3: error: braces around scalar initializer [-Werror]
+   59 |   {"errors", _myerrors},
+      |   ^
+shloop.c:59:3: note: (near initialization for ‘biultintbl[5]’)
+shloop.c:59:4: error: initialization of ‘int’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+   59 |   {"errors", _myerrors},
+      |    ^~~~~~~~
+shloop.c:59:4: note: (near initialization for ‘biultintbl[5]’)
+shloop.c:59:14: error: ‘_myerrors’ undeclared (first use in this function)
+   59 |   {"errors", _myerrors},
+      |              ^~~~~~~~~
+shloop.c:59:14: error: excess elements in scalar initializer [-Werror]
+shloop.c:59:14: note: (near initialization for ‘biultintbl[5]’)
+shloop.c:59:3: error: initializer element is not computable at load time [-Werror=pedantic]
+   59 |   {"errors", _myerrors},
+      |   ^
+shloop.c:60:3: error: braces around scalar initializer [-Werror]
+   60 |   {"history"'_myhistory},
+      |   ^
+shloop.c:60:3: note: (near initialization for ‘biultintbl[6]’)
+shloop.c:60:13: error: missing terminating ' character [-Werror]
+   60 |   {"history"'_myhistory},
+      |             ^
+shloop.c:60:13: error: missing terminating ' character
+   60 |   {"history"'_myhistory},
+      |             ^~~~~~~~~~~~~
+shloop.c:60:4: error: initialization of ‘int’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+   60 |   {"history"'_myhistory},
+      |    ^~~~~~~~~
+shloop.c:60:4: note: (near initialization for ‘biultintbl[6]’)
+shloop.c:61:3: error: expected ‘}’ before ‘{’ token
+   61 |   {NULL, NULL}
+      |   ^
+shloop.c:60:3: note: to match this ‘{’
+   60 |   {"history"'_myhistory},
+      |   ^
+shloop.c:64:2: error: expected ‘}’ before ‘for’
+   64 |  for (j = 0; builtinbl[j].type; j++)
+      |  ^~~
+shloop.c:53:28: note: to match this ‘{’
+   53 |  path_table biultintbl[] = {
+      |                            ^
+shloop.c:105:29: error: multi-character character constant [-Werror=multichar]
+  105 |      || data->argv[0][0] == ' / ') && iserror(data, data->argv[0]))
+      |                             ^~~~~
+shloop.c:113:1: error: expected declaration or statement at end of input
+  113 | }
+      | ^
+shloop.c:53:13: error: unused variable ‘biultintbl’ [-Werror=unused-variable]
+   53 |  path_table biultintbl[] = {
+      |             ^~~~~~~~~~
+shloop.c:52:9: error: unused variable ‘path_in_ret’ [-Werror=unused-variable]
+   52 |  int j, path_in_ret = -1;
+      |         ^~~~~~~~~~~
+shloop.c:52:6: error: unused variable ‘j’ [-Werror=unused-variable]
+   52 |  int j, path_in_ret = -1;
+      |      ^
+shloop.c:50:23: error: unused parameter ‘data’ [-Werror=unused-parameter]
+   50 | int find_path(data_s *data)
+      |               ~~~~~~~~^~~~
+shloop.c:113: error: control reaches end of non-void function [-Werror=return-type]
+  113 | }
+      | 
+cc1: all warnings being treated as errors
+string.c:9:23: error: unknown type name ‘info_t’; did you mean ‘ino_t’?
+    9 | char *get_string_file(info_t *info)
+      |                       ^~~~~~
+      |                       ino_t
+string.c:31:18: error: unknown type name ‘info_t’; did you mean ‘ino_t’?
+   31 | int write_string(info_t *info)
+      |                  ^~~~~~
+      |                  ino_t
+string.c:40:22: error: invalid suffix "_CREAT" on integer constant
+   40 |  fd = open(filename, 0_CREAT | 0_WRONLY | 0_APPEND, 0644);
+      |                      ^~~~~~~
+string.c:40:32: error: invalid suffix "_WRONLY" on integer constant
+   40 |  fd = open(filename, 0_CREAT | 0_WRONLY | 0_APPEND, 0644);
+      |                                ^~~~~~~~
+string.c:40:43: error: invalid suffix "_APPEND" on integer constant
+   40 |  fd = open(filename, 0_CREAT | 0_WRONLY | 0_APPEND, 0644);
+      |                                           ^~~~~~~~
+string.c: In function ‘read_string’:
+string.c:86:22: error: invalid suffix "_RDONLY" on integer constant
+   86 |  fd = open(filename, 0_RDONLY);
+      |                      ^~~~~~~~
+string.c:120:4: error: implicit declaration of function ‘build_string_list’ [-Werror=implicit-function-declaration]
+  120 |    build_string_list(info, buf + last, linecount++);
+      |    ^~~~~~~~~~~~~~~~~
+string.c:120:22: error: ‘info’ undeclared (first use in this function)
+  120 |    build_string_list(info, buf + last, linecount++);
+      |                      ^~~~
+string.c:120:22: note: each undeclared identifier is reported only once for each function it appears in
+string.c:131:26: error: ‘STR_MAX’ undeclared (first use in this function); did you mean ‘SHRT_MAX’?
+  131 |  while (info->strng-- >= STR_MAX)
+      |                          ^~~~~~~
+      |                          SHRT_MAX
+string.c:132:3: error: implicit declaration of function ‘delete_node_at_index’ [-Werror=implicit-function-declaration]
+  132 |   delete_node_at_index(&(info->former_n), 0);
+      |   ^~~~~~~~~~~~~~~~~~~~
+string.c:134:2: error: implicit declaration of function ‘renumber_string’ [-Werror=implicit-function-declaration]
+  134 |  renumber_string(info);
+      |  ^~~~~~~~~~~~~~~
+string.c:137:1: error: control reaches end of non-void function [-Werror=return-type]
+  137 | }
+      | ^
+cc1: all warnings being treated as errors
+string_shell.c: In function ‘copy_str’:
+string_shell.c:11:11: error: comparison between pointer and integer [-Werror]
+   11 |  if (prim == frm || frm == 0)
+      |           ^~
+string_shell.c:14:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   14 |  char *dest_start = prim;
+      |  ^~~~
+string_shell.c:16:9: error: invalid type argument of unary ‘*’ (have ‘int’)
+   16 |  while (*frm)
+      |         ^~~~
+string_shell.c:18:11: error: invalid type argument of unary ‘*’ (have ‘int’)
+   18 |   *prim = *frm;
+      |           ^~~~
+string_shell.c:20:6: error: increment of read-only parameter ‘frm’
+   20 |   frm++;
+      |      ^~
+string_shell.c: In function ‘duplic_str’:
+string_shell.c:35:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   35 |  int dup = 0;
+      |  ^~~
+string_shell.c:44:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   44 |  char *duplicate = malloc(sizeof(char) * (dup + 1));
+      |  ^~~~
+string_shell.c:49:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   49 |  char *duplicate_ptr = duplicate;
+      |  ^~~~
+string_shell.c: In function ‘print_inp’:
+string_shell.c:72:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   72 |  const char *str_ptr = strng;
+      |  ^~~~~
+cc1: all warnings being treated as errors
+token.c: In function ‘strtow’:
+token.c:19:2: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+   19 |  int len = strlen(str);
+      |  ^~~
+token.c:58:14: error: too many arguments to function ‘duplic_str’
+   58 |   words[j] = duplic_str(&str[i], k);
+      |              ^~~~~~~~~~
+In file included from token.c:1:
+main.h:140:7: note: declared here
+  140 | char *duplic_str(const char *strng);
+      |       ^~~~~~~~~~
+cc1: all warnings being treated as errors
+variable.c: In function ‘alias_rep’:
+variable.c:79:42: error: passing argument 2 of ‘str_strts’ makes integer from pointer without a cast [-Werror=int-conversion]
+   79 |  pone = str_strts(data->alias, data->argv[0], '=');
+      |                                ~~~~~~~~~~^~~
+      |                                          |
+      |                                          char *
+In file included from variable.c:1:
+main.h:136:9: note: expected ‘char’ but argument is of type ‘char *’
+  136 | link_s *str_strts(link_s *head, const char pfix, char n);
+      |         ^~~~~~~~~
+variable.c:79:9: error: incompatible types when assigning to type ‘link_s’ {aka ‘struct linkedlst’} from type ‘link_s *’ {aka ‘struct linkedlst *’}
+   79 |  pone = str_strts(data->alias, data->argv[0], '=');
+      |         ^~~~~~~~~
+variable.c:80:6: error: wrong type argument to unary exclamation mark
+   80 |  if (!pone)
+      |      ^
+variable.c:83:8: error: implicit declaration of function ‘loc_str’ [-Werror=implicit-function-declaration]
+   83 |  pro = loc_str(pone->srt, '=');
+      |        ^~~~~~~
+variable.c:83:20: error: invalid type argument of ‘->’ (have ‘link_s’ {aka ‘struct linkedlst’})
+   83 |  pro = loc_str(pone->srt, '=');
+      |                    ^~
+variable.c: In function ‘vars_str’:
+variable.c:122:33: error: passing argument 2 of ‘str_strts’ makes integer from pointer without a cast [-Werror=int-conversion]
+  122 |    prim = str_strts(data->_env, var_name, '=');
+      |                                 ^~~~~~~~
+      |                                 |
+      |                                 char *
+In file included from variable.c:1:
+main.h:136:9: note: expected ‘char’ but argument is of type ‘char *’
+  136 | link_s *str_strts(link_s *head, const char pfix, char n);
+      |         ^~~~~~~~~
+variable.c:125:19: error: initialization of ‘char *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+  125 |     char *value = loc_str(prim->srt, '=') + 1;
+      |                   ^~~~~~~
+cc1: all warnings being treated as errors

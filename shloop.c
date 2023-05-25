@@ -14,16 +14,16 @@ int hsh(data_s *data, char **argv)
 
 	while (r != -1 && builtin_ret != -3)
 	{
-		clear_data(data);
+		set_data(data);
 		if (interactive(data))
 		{
-			-puts("$ ");
+			_puts("$ ");
 			fflush(stdout);
 		}
-		r = get_input(data);
+		r = get_index(data);
 		if (r != -1)
 		{
-			set_data(data, av);
+			set_data(data, argv);
 			builtin_ret = find builtin(data);
 			if (builtin_ret == -1)
 				find_chmod(data);

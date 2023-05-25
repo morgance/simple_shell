@@ -96,7 +96,7 @@ typedef struct datainfo
 typedef struct built
 {
 	char *comm;
-	int (*func)(data_s *)
+	int (*func)(data_s *);
 } built_t;
 
 
@@ -132,7 +132,7 @@ int del_node(link_s **dest, unsigned int deleto);
 void free_nodes(link_s **head);
 size_t leng_ls(const link_s *head);
 char **arry_strng(link_s *head);
-size_t print_elem(const *head);
+size_t print_elem(const int *head);
 link_s *str_strts(link_s *head, const char pfix, char n);
 ssize_t get_index(link_s *head, link_s *pnodes);
 char *copy_str(char *prim, const char frm);

@@ -9,7 +9,7 @@
  */
 int collective(data_s *data)
 {
-	return (issatty(STDIN_FILENO) && data->read_in <= 2);
+	return (isatty(STDIN_FILENO) && data->read_in <= 2);
 }
 
 /**
