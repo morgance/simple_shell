@@ -21,7 +21,8 @@ char **strtow(char *str, char *delimiters)
 	/* Count the number of words */
 	for (i = 0; i < len; i++)
 	{
-		if (!is_lim(str[i], delimiters) && (is_lim(str[i + 1], delimiters) || str[i + 1] == '\0'))
+		if (!is_lim(str[i], delimiters) && (is_lim(str[i + 1],
+						delimiters) || str[i + 1] == '\0'))
 			word_count++;
 	}
 

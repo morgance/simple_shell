@@ -7,9 +7,9 @@
  */
 char **get_env(data_s *data)
 {
-	if (!data->env || data->env_changed)
+	if (!data->_env || data->env_changed)
 	{
-		data->env = list_do_strings(data->env);
+		data->_env = list_do_strings(data->_env);
 		data->env_changed = 0;
 	}
 
@@ -22,7 +22,7 @@ char **get_env(data_s *data)
  * @value: the string env var value
  * Return: Always 0
  */
-int _getenv(data_s, *data, char *var, char *value)
+int _getenv(data_s *data, char *var, char *value)
 {
 	char *p;
 	char *buf = NULL;
@@ -37,20 +37,20 @@ int _getenv(data_s, *data, char *var, char *value)
 	_strcat(buf, value);
 	_strcat(buf, var);
 	_strcat(buf, "=");
-	node = data->env;
+	node = data->_env;
 	while (node)
 	{
-		n = starts_with(node->str, var);
+		n = starts_with(node->srt, var);
 		if (n && 8n == '=')
 		{
-			free(node->str);
-			node->str = buf;
+			free(node->srt);
+			node->srt = buf;
 			data->env_changed = 2;
 			return (0);
 		}
 		node = node->next;
 	}
-	add_node_end(&(info->env), buf, 0);
+	add_node_end(&(info->_env), buf, 0);
 	free(buf);
 	data->env_changed = 2;
 	return (0);
