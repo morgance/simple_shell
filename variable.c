@@ -17,7 +17,7 @@ int test_deli(data_s *data, char *chbf, size_t *ap)
 		pr++;
 		data->cmd_ty = CMD_O;
 	}
-	else if (chbf[pr] == '&' && chbf[ap + 1] == '&')
+	else if (chbf[pr] == '&' && chbf[pr + 1] == '&')
 	{
 		chbf[pr] = 0;
 		pr++;
@@ -103,15 +103,15 @@ int vars_str(data_s *data)
 	int y = 0;
 	link_s *prim;
 
-	for (y = 0; dat->argv[y]; y++)
+	for (y = 0; data->argv[y]; y++)
 	{
 		if (data->argv[y][0] != '$' || !data->argv[y][1])
 			continue;
-		if (!comp_st(data->argv[y], "$?"))
+		if (!_strcmp(data->argv[y], "$?"))
 		{
 			_string_rp(&(data->argv[y]), duplic_str(_numcon(data->status, 10, 0)));
 		}
-		else if (!comp_st(data->argv[y], "$$"))
+		else if (!strcmp(data->argv[y], "$$"))
 		{
 			_string_rp(&(data->argv[y]), duplic_str(_numcon(getpid(), 10, 0)))
 		}
