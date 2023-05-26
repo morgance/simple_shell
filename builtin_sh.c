@@ -7,7 +7,7 @@
  */
 int _history(data_s *data)
 {
-	print_elem(data->former_n);
+	print_elem(data, *former_n);
 	return (0);
 }
 /**
@@ -29,7 +29,7 @@ int unset_alias(data_s *data, char *n)
 	*i = '\0';  /* Replace '=' with null terminator to isolate the alias*/
 
 	/* Find the node with the matching alias and delete it*/
-	link_s *node = str_strts(data->alias, n, -1);
+	link_s *node = str_strts(data->alias, char *, -1);
 
 	if (node)
 	{

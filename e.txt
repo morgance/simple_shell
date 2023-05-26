@@ -782,6 +782,7 @@ string.c:40:32: error: invalid suffix "_WRONLY" on integer constant
 string.c:40:43: error: invalid suffix "_APPEND" on integer constant
    40 |  fd = open(filename, 0_CREAT | 0_WRONLY | 0_APPEND, 0644);
       |                                           ^~~~~~~~
+:
 string.c: In function ‘read_string’:
 string.c:86:22: error: invalid suffix "_RDONLY" on integer constant
    86 |  fd = open(filename, 0_RDONLY);

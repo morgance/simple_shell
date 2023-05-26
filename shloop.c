@@ -17,10 +17,10 @@ int hsh(data_s *data, char **argv)
 		set_data(data);
 		if (interactive(data))
 		{
-			_puts("$ ");
+			puts("$ ");
 			fflush(stdout);
 		}
-		r = get_index(data);
+		r = get_index(data_s *);
 		if (r != -1)
 		{
 			set_data(data, argv);
