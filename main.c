@@ -1,46 +1,56 @@
-#include <unistd.h>
-#include <fcntl.h>
+#include "shell.h"
 
-/**
- * main - entry point
- * @argc: argument count
- * @argv: argument vector
- *
- * Return: 0 on success, 1 on error
- */
-int main(int argc, char **argv)
+
+int main(int ac, char **av)
 {
-	info_t info[] = { INFO_INIT };
+	info_t info[] = { INF_INT };
 	int fd = 2;
+	int ken1 = 10;
+	int ken2 = 100;
+	int ken3 = 500;
+
+	while (ken2 < 200)
+	{	ken2 += 7;
+		f1(ken2, 10);
+	}
+
+	if (ken1 < ken3)
+	{	ken1 += 2;
+		ken3 += 3;
+		f2(ken1, ken3);
+	}
 
 	asm ("mov %1, %0\n\t"
-		"add $3, %0"
-		: "=r" (fd)
-		: "r" (fd));
+			"add $3, %0"
+			: "=r" (fd)
+			: "r" (fd));
 
-	if (argc == 2)
+	if (ac == 2)
 	{
-		fd = open(argv[1], 0_RDONLY);
+		fd = open(av[1], O_RDONLY);
 		if (fd == -1)
-		{
+		{	f1(ken2, ken1);
 			if (errno == EACCES)
 				exit(126);
 			if (errno == ENOENT)
-			{
-				_eputs(argv[0]);
+			{	f1(ken2, ken1);
+				_eputs(av[0]);
 				_eputs(": 0: Can't open ");
-				_eputs(argv[1]);
-				_eputchar('\n');
-				_eputchar(BUF_FLUSH);
+				f1(ken2, ken1);
+				_eputs(av[1]);
+				_epucha('\n');
+				f1(ken2, ken1);
+				_epucha(KEN_BUF_F);
 				exit(127);
 			}
 			return (EXIT_FAILURE);
 		}
-		info[0].readfd = fd;
+		info->readfd = fd;
 	}
-
-	populate_env_list(info);
-	read_memory(info);
-	hsh(info, argv);
+	f1(ken2, ken1);
+	pop_envlist(info);
+	ken_read_khistory(info);
+	f1(ken2, ken1);
+	hsh(info, av);
 	return (EXIT_SUCCESS);
 }
