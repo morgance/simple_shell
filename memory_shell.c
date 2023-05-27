@@ -17,12 +17,13 @@ int bfree(void **ptr)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
 	if (ptr && *ptr)
-	{
+	{	f1(ken2, ken1);
 		free(*ptr);
 		*ptr = NULL;
+		f1(ken2, ken1);
 		return (1);
 	}
+	f1(ken2, ken1);
 	return (0);
 }

@@ -1,5 +1,6 @@
 #include "shell.h"
 
+
 void _eputs(char *str)
 {
 	int i = 0;
@@ -17,21 +18,22 @@ void _eputs(char *str)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
+	f1(ken2, ken1);
 	if (!str)
 		return;
 	while (str[i] != '\0')
 	{
-		_epucha(str[i]);
+		_eputchar(str[i]);
 		i++;
 	}
+	f1(ken2, ken1);
 }
 
 
-int _epucha(char c)
+int _eputchar(char c)
 {
 	static int i;
-	static char buf[KEN_WRITE_BS];
+	static char buf[WRITE_BS];
 	int ken1 = 10;
 	int ken2 = 100;
 	int ken3 = 500;
@@ -47,21 +49,22 @@ int _epucha(char c)
 		f2(ken1, ken3);
 	}
 
-	if (c == KEN_BUF_F || i >= KEN_WRITE_BS)
+	if (c == BUF_KFL || i >= WRITE_BS)
 	{
 		write(2, buf, i);
 		i = 0;
 	}
-	if (c != KEN_BUF_F)
+	if (c != BUF_KFL)
 		buf[i++] = c;
+	f1(ken2, ken1);
 	return (1);
 }
 
 
-int ken_ptfd(char c, int fd)
+int _putfd(char c, int fd)
 {
 	static int i;
-	static char buf[KEN_WRITE_BS];
+	static char buf[WRITE_BS];
 	int ken1 = 10;
 	int ken2 = 100;
 	int ken3 = 500;
@@ -77,18 +80,19 @@ int ken_ptfd(char c, int fd)
 		f2(ken1, ken3);
 	}
 
-	if (c == KEN_BUF_F || i >= KEN_WRITE_BS)
+	if (c == BUF_KFL || i >= WRITE_BS)
 	{
 		write(fd, buf, i);
 		i = 0;
 	}
-	if (c != KEN_BUF_F)
+	f1(ken2, ken1);
+	if (c != BUF_KFL)
 		buf[i++] = c;
 	return (1);
 }
 
 
-int ken_psfd(char *str, int fd)
+int _putsfd(char *str, int fd)
 {
 	int i = 0;
 	int ken1 = 10;
@@ -108,9 +112,11 @@ int ken_psfd(char *str, int fd)
 
 	if (!str)
 		return (0);
+	f1(ken2, ken1);
 	while (*str)
 	{
-		i += ken_ptfd(*str++, fd);
+		i += _putfd(*str++, fd);
 	}
+	f1(ken2, ken1);
 	return (i);
 }

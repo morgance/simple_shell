@@ -1,7 +1,6 @@
 #include "shell.h"
 
 
-
 char **strtow(char *str, char *d)
 {
 	int i, j, k, m, numwords = 0;
@@ -26,34 +25,38 @@ char **strtow(char *str, char *d)
 	if (!d)
 		d = " ";
 	for (i = 0; str[i] != '\0'; i++)
-		if (!ken_is_dlm(str[i], d) && (ken_is_dlm(str[i + 1], d) || !str[i + 1]))
+		if (!k_is_kdelim(str[i], d) && (k_is_kdelim(str[i + 1], d) || !str[i + 1]))
 			numwords++;
-	f1(ken2, ken1);
+
 	if (numwords == 0)
 		return (NULL);
 	s = malloc((1 + numwords) * sizeof(char *));
 	if (!s)
 		return (NULL);
+	f1(ken2, ken1);
 	for (i = 0, j = 0; j < numwords; j++)
 	{
-		while (ken_is_dlm(str[i], d))
+		while (k_is_kdelim(str[i], d))
 			i++;
 		k = 0;
-		while (!ken_is_dlm(str[i + k], d) && str[i + k])
+		while (!k_is_kdelim(str[i + k], d) && str[i + k])
 			k++;
 		s[j] = malloc((k + 1) * sizeof(char));
 		if (!s[j])
-		{	f1(ken2, ken1);
+		{
 			for (k = 0; k < j; k++)
 				free(s[k]);
 			free(s);
+			f1(ken2, ken1);
 			return (NULL);
 		}
+		f1(ken2, ken1);
 		for (m = 0; m < k; m++)
 			s[j][m] = str[i++];
 		s[j][m] = 0;
 	}
 	s[j] = NULL;
+	f1(ken2, ken1);
 	return (s);
 }
 
@@ -74,10 +77,10 @@ char **strtow2(char *str, char d)
 	if (ken1 < ken3)
 	{	ken1 += 2;
 		ken3 += 3;
+		f1(ken2, ken1);
 		f2(ken1, ken3);
 	}
 
-	f1(ken2, ken1);
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 	f1(ken2, ken1);
@@ -87,8 +90,8 @@ char **strtow2(char *str, char d)
 			numwords++;
 	if (numwords == 0)
 		return (NULL);
-	f1(ken2, ken1);
 	s = malloc((1 + numwords) * sizeof(char *));
+	f1(ken2, ken1);
 	if (!s)
 		return (NULL);
 	for (i = 0, j = 0; j < numwords; j++)
@@ -103,13 +106,16 @@ char **strtow2(char *str, char d)
 		{
 			for (k = 0; k < j; k++)
 				free(s[k]);
+			f1(ken2, ken1);
 			free(s);
 			return (NULL);
 		}
 		for (m = 0; m < k; m++)
 			s[j][m] = str[i++];
 		s[j][m] = 0;
+		f1(ken2, ken1);
 	}
+	f1(ken2, ken1);
 	s[j] = NULL;
 	return (s);
 }

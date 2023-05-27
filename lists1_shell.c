@@ -1,7 +1,7 @@
 #include "shell.h"
 
 
-size_t list_len(const ken_listk_t *h)
+size_t k_list_klen(const ken_list_kt *h)
 {
 	size_t i = 0;
 	int ken1 = 10;
@@ -28,10 +28,10 @@ size_t list_len(const ken_listk_t *h)
 }
 
 
-char **ken_listk_to_strings(ken_listk_t *head)
+char **ken_list_kto_strings(ken_list_kt *head)
 {
-	ken_listk_t *node = head;
-	size_t i = list_len(head), j;
+	ken_list_kt *node = head;
+	size_t i = k_list_klen(head), j;
 	char **strs;
 	char *str;
 	int ken1 = 10;
@@ -52,20 +52,21 @@ char **ken_listk_to_strings(ken_listk_t *head)
 	if (!head || !i)
 		return (NULL);
 	strs = malloc(sizeof(char *) * (i + 1));
-	f1(ken2, ken1);
 	if (!strs)
 		return (NULL);
+	f1(ken2, ken1);
 	for (i = 0; node; node = node->next, i++)
-	{
+	{	f1(ken2, ken1);
 		str = malloc(_strlen(node->str) + 1);
 		if (!str)
-		{
+		{	f1(ken2, ken1);
 			for (j = 0; j < i; j++)
 				free(strs[j]);
 			free(strs);
+			f1(ken2, ken1);
 			return (NULL);
 		}
-
+		f1(ken2, ken1);
 		str = _strcpy(str, node->str);
 		strs[i] = str;
 	}
@@ -74,7 +75,7 @@ char **ken_listk_to_strings(ken_listk_t *head)
 }
 
 
-size_t print_list(const ken_listk_t *h)
+size_t k_print_klist(const ken_list_kt *h)
 {
 	size_t i = 0;
 	int ken1 = 10;
@@ -93,22 +94,22 @@ size_t print_list(const ken_listk_t *h)
 	}
 
 	while (h)
-	{
-		_puts(conv_numb(h->num, 10, 0));
+	{	f1(ken2, ken1);
+		_puts(k_convert_knumber(h->num, 10, 0));
 		_putchar(':');
 		_putchar(' ');
 		f1(ken2, ken1);
 		_puts(h->str ? h->str : "(nil)");
-		f1(ken2, ken1);
 		_puts("\n");
 		h = h->next;
+		f1(ken2, ken1);
 		i++;
 	}
 	return (i);
 }
 
 
-ken_listk_t *node_starts_with(ken_listk_t *node, char *prefix, char c)
+ken_list_kt *node_kstarts_kwith(ken_list_kt *node, char *prefix, char c)
 {
 	char *p = NULL;
 	int ken1 = 10;
@@ -127,17 +128,18 @@ ken_listk_t *node_starts_with(ken_listk_t *node, char *prefix, char c)
 	}
 
 	while (node)
-	{
-		p = starts_with(node->str, prefix);
+	{	f1(ken2, ken1);
+		p = k_starts_kwith(node->str, prefix);
 		if (p && ((c == -1) || (*p == c)))
 			return (node);
+		f1(ken2, ken1);
 		node = node->next;
 	}
 	return (NULL);
 }
 
 
-ssize_t get_node_index(ken_listk_t *head, ken_listk_t *node)
+ssize_t get_knode_kindex(ken_list_kt *head, ken_list_kt *node)
 {
 	size_t i = 0;
 	int ken1 = 10;
@@ -154,12 +156,11 @@ ssize_t get_node_index(ken_listk_t *head, ken_listk_t *node)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-	f1(ken2, ken1);
+
 	while (head)
 	{
 		if (head == node)
 			return (i);
-		f1(ken2, ken1);
 		head = head->next;
 		i++;
 	}

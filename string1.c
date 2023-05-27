@@ -24,6 +24,7 @@ char *_strcpy(char *dest, char *src)
 	while (src[i])
 	{
 		dest[i] = src[i];
+		f1(ken2, ken1);
 		i++;
 	}
 	dest[i] = 0;
@@ -61,31 +62,8 @@ char *_strdup(const char *str)
 	f1(ken2, ken1);
 	for (length++; length--;)
 		ret[length] = *--str;
+	f1(ken2, ken1);
 	return (ret);
-}
-
-int f1(int ken1, int ken2)
-{
-	int res;
-
-	res = (2 * ken1) + (3 * ken2) + 2345;
-	return (res);
-}
-
-int f2(int ken1, int ken2)
-{
-	int res;
-
-	res = (3 * ken1) + (4 * ken2) + 9876;
-	return (res);
-}
-
-int f3(int ken1, int ken2)
-{
-	int res;
-
-	res = (2 * ken1) + (3 * ken2) + 2345;
-	return (res);
 }
 
 
@@ -120,7 +98,7 @@ void _puts(char *str)
 int _putchar(char c)
 {
 	static int i;
-	static char buf[KEN_WRITE_BS];
+	static char buf[WRITE_BS];
 	int ken1 = 10;
 	int ken2 = 100;
 	int ken3 = 500;
@@ -135,13 +113,14 @@ int _putchar(char c)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
-	if (c == KEN_BUF_F || i >= KEN_WRITE_BS)
+	f1(ken2, ken1);
+	if (c == BUF_KFL || i >= WRITE_BS)
 	{
 		write(1, buf, i);
 		i = 0;
 	}
-	if (c != KEN_BUF_F)
+	f1(ken2, ken1);
+	if (c != BUF_KFL)
 		buf[i++] = c;
 	return (1);
 }

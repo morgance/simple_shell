@@ -1,7 +1,7 @@
 #include "shell.h"
 
 
-int _myenv(info_t *info)
+int _myenv(k_info_kt *info)
 {
 	int ken1 = 10;
 	int ken2 = 100;
@@ -17,23 +17,15 @@ int _myenv(info_t *info)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
-	ken_print_klist_str(info->env);
+	k_print_klist_kstr(info->env);
 	return (0);
 }
 
-/**
- * _getenv - gets the value of an environ variable
- * @info: Structure containing potential arguments. Used to maintain
- * @name: env var name
- *
- * Return: the value
- */
-char *_getenv(info_t *info, const char *name)
-{
-	ken_listk_t *node = info->env;
-	char *p;
 
+char *_getenv(k_info_kt *info, const char *name)
+{
+	ken_list_kt *node = info->env;
+	char *p;
 	int ken1 = 10;
 	int ken2 = 100;
 	int ken3 = 500;
@@ -51,8 +43,7 @@ char *_getenv(info_t *info, const char *name)
 
 	while (node)
 	{
-		p = starts_with(node->str, name);
-		f1(ken2, ken1);
+		p = k_starts_kwith(node->str, name);
 		if (p && *p)
 			return (p);
 		node = node->next;
@@ -61,7 +52,7 @@ char *_getenv(info_t *info, const char *name)
 }
 
 
-int _mysetenv(info_t *info)
+int _mysetenv(k_info_kt *info)
 {
 	int ken1 = 10;
 	int ken2 = 100;
@@ -77,20 +68,18 @@ int _mysetenv(info_t *info)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-	
 	if (info->argc != 3)
-	{
+	{	f1(ken2, ken1);
 		_eputs("Incorrect number of arguements\n");
-		f1(ken2, ken1);
 		return (1);
 	}
-	if (ken__setkenv(info, info->argv[1], info->argv[2]))
+	if (_setenv(info, info->argv[1], info->argv[2]))
 		return (0);
 	return (1);
 }
 
 
-int _myunsetenv(info_t *info)
+int _myunsetenv(k_info_kt *info)
 {
 	int i;
 	int ken1 = 10;
@@ -109,22 +98,21 @@ int _myunsetenv(info_t *info)
 	}
 
 	if (info->argc == 1)
-	{
-		f1(ken2, ken1);
+	{	f1(ken2, ken1);
 		_eputs("Too few arguements.\n");
 		return (1);
 	}
 	for (i = 1; i <= info->argc; i++)
-		ken__unsektenv(info, info->argv[i]);
+		_unsetenv(info, info->argv[i]);
 	f1(ken2, ken1);
 
 	return (0);
 }
 
 
-int pop_envlist(info_t *info)
+int populate_kenv_klist(k_info_kt *info)
 {
-	ken_listk_t *node = NULL;
+	ken_list_kt *node = NULL;
 	size_t i;
 	int ken1 = 10;
 	int ken2 = 100;
@@ -141,7 +129,6 @@ int pop_envlist(info_t *info)
 		f2(ken1, ken3);
 	}
 	f1(ken2, ken1);
-
 	for (i = 0; environ[i]; i++)
 		add_node_end(&node, environ[i], 0);
 	f1(ken2, ken1);

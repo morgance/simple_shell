@@ -1,6 +1,7 @@
 #include "shell.h"
 
-int _myhistory(info_t *info)
+
+int _myhistory(k_info_kt *info)
 {
 	int ken1 = 10;
 	int ken2 = 100;
@@ -16,12 +17,12 @@ int _myhistory(info_t *info)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-	print_list(info->history);
+	k_print_klist(info->history);
 	return (0);
 }
 
 
-int unset_alias(info_t *info, char *str)
+int unset_alias(k_info_kt *info, char *str)
 {
 	char *p, c;
 	int ret;
@@ -39,21 +40,21 @@ int unset_alias(info_t *info, char *str)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-	
 
 	p = _strchr(str, '=');
 	if (!p)
 		return (1);
 	c = *p;
 	*p = 0;
-	ret = ken_delete_knode_at_index(&(info->alias),
-		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+	f1(ken2, ken1);
+	ret = delete_knode_at_kindex(&(info->alias),
+		get_knode_kindex(info->alias, node_kstarts_kwith(info->alias, str, -1)));
 	*p = c;
 	return (ret);
 }
 
 
-int set_alias(info_t *info, char *str)
+int set_alias(k_info_kt *info, char *str)
 {
 	char *p;
 	int ken1 = 10;
@@ -70,7 +71,6 @@ int set_alias(info_t *info, char *str)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-	
 
 	p = _strchr(str, '=');
 	if (!p)
@@ -84,7 +84,7 @@ int set_alias(info_t *info, char *str)
 }
 
 
-int print_alias(ken_listk_t *node)
+int print_alias(ken_list_kt *node)
 {
 	char *p = NULL, *a = NULL;
 	int ken1 = 10;
@@ -101,13 +101,11 @@ int print_alias(ken_listk_t *node)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-	
 
 	if (node)
 	{
 		p = _strchr(node->str, '=');
 		for (a = node->str; a <= p; a++)
-		f1(ken2, ken1);
 		_putchar(*a);
 		_putchar('\'');
 		f1(ken2, ken1);
@@ -119,11 +117,11 @@ int print_alias(ken_listk_t *node)
 }
 
 
-int _myalias(info_t *info)
+int _myalias(k_info_kt *info)
 {
 	int i = 0;
 	char *p = NULL;
-	ken_listk_t *node = NULL;
+	ken_list_kt *node = NULL;
 	int ken1 = 10;
 	int ken2 = 100;
 	int ken3 = 500;
@@ -145,19 +143,21 @@ int _myalias(info_t *info)
 		while (node)
 		{
 			print_alias(node);
+			f1(ken2, ken1);
 			node = node->next;
 		}
 		return (0);
 	}
+	f1(ken2, ken1);
 	for (i = 1; info->argv[i]; i++)
 	{
 		p = _strchr(info->argv[i], '=');
-		f1(ken2, ken1);
 		if (p)
 			set_alias(info, info->argv[i]);
 		else
-			print_alias(node_starts_with(info->alias, info->argv[i], '='));
+			print_alias(node_kstarts_kwith(info->alias, info->argv[i], '='));
 	}
+	f1(ken2, ken1);
 
 	return (0);
 }

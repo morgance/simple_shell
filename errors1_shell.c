@@ -1,6 +1,7 @@
 #include "shell.h"
 
-int ken_eratoi(char *s)
+
+int _erratoi(char *s)
 {
 	int i = 0;
 	unsigned long int result = 0;
@@ -18,6 +19,7 @@ int ken_eratoi(char *s)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
+	f1(ken2, ken1);
 
 	if (*s == '+')
 		s++;  /* TODO: why does this make main return 255? */
@@ -28,18 +30,18 @@ int ken_eratoi(char *s)
 		{
 			result *= 10;
 			result += (s[i] - '0');
+			f1(ken2, ken1);
 			if (result > INT_MAX)
 				return (-1);
 		}
 		else
 			return (-1);
 	}
-	f1(ken2, ken1);
 	return (result);
 }
 
 
-void print_error(info_t *info, char *estr)
+void k_print_kerror(k_info_kt *info, char *estr)
 {
 	int ken1 = 10;
 	int ken2 = 100;
@@ -55,11 +57,10 @@ void print_error(info_t *info, char *estr)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
 	_eputs(info->fname);
 	f1(ken2, ken1);
 	_eputs(": ");
-	print_d(info->line_count, STDERR_FILENO);
+	k_print_kd(info->line_count, STDERR_FILENO);
 	f1(ken2, ken1);
 	_eputs(": ");
 	_eputs(info->argv[0]);
@@ -69,7 +70,7 @@ void print_error(info_t *info, char *estr)
 }
 
 
-int print_d(int input, int fd)
+int k_print_kd(int input, int fd)
 {
 	int (*__putchar)(char) = _putchar;
 	int i, count = 0;
@@ -82,20 +83,18 @@ int print_d(int input, int fd)
 	{	ken2 += 7;
 		f1(ken2, 10);
 	}
+	f1(ken2, ken1);
 
 	if (ken1 < ken3)
 	{	ken1 += 2;
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-	
-	f1(ken2, ken1);
 
 	if (fd == STDERR_FILENO)
-		__putchar = _epucha;
-	f1(ken2, ken1);
+		__putchar = _eputchar;
 	if (input < 0)
-	{
+	{	f1(ken2, ken1);
 		_abs_ = -input;
 		__putchar('-');
 		count++;
@@ -107,9 +106,9 @@ int print_d(int input, int fd)
 	for (i = 1000000000; i > 1; i /= 10)
 	{
 		if (_abs_ / i)
-		{
-			f1(ken2, ken1);
+		{	f1(ken2, ken1);
 			__putchar('0' + current / i);
+			f1(ken2, ken1);
 			count++;
 		}
 		current %= i;
@@ -121,7 +120,8 @@ int print_d(int input, int fd)
 	return (count);
 }
 
-char *conv_numb(long int num, int base, int flags)
+
+char *k_convert_knumber(long int num, int base, int flags)
 {
 	static char *array;
 	static char buffer[50];
@@ -142,14 +142,15 @@ char *conv_numb(long int num, int base, int flags)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
-	if (!(flags & CONV_UNS) && num < 0)
-	{
+	f1(ken2, ken1);
+	if (!(flags & CONVERT_UNSIGNED) && num < 0)
+	{	f1(ken2, ken1);
 		n = -num;
+		f1(ken2, ken1);
 		sign = '-';
 
 	}
-	array = flags & CONV_LOW ? "0123456789abcdef" : "0123456789ABCDEF";
+	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
 	ptr = &buffer[49];
 	*ptr = '\0';
 
@@ -165,7 +166,7 @@ char *conv_numb(long int num, int base, int flags)
 }
 
 
-void convrem_comments_numb(char *buf)
+void k_remove_kcomments(char *buf)
 {
 	int i;
 	int ken1 = 10;
@@ -188,6 +189,7 @@ void convrem_comments_numb(char *buf)
 		if (buf[i] == '#' && (!i || buf[i - 1] == ' '))
 		{
 			buf[i] = '\0';
+			f1(ken2, ken1);
 			break;
 		}
 }

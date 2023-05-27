@@ -1,7 +1,7 @@
 #include "shell.h"
 
 
-void clr_info(info_t *info)
+void k_clear_kinfo(k_info_kt *info)
 {
 	int ken1 = 10;
 	int ken2 = 100;
@@ -17,15 +17,16 @@ void clr_info(info_t *info)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
+	f1(ken2, ken1);
 	info->arg = NULL;
 	info->argv = NULL;
+	f1(ken2, ken1);
 	info->path = NULL;
 	info->argc = 0;
 }
 
 
-void set_info(info_t *info, char **av)
+void k_set_kinfo(k_info_kt *info, char **av)
 {
 	int i = 0;
 	int ken1 = 10;
@@ -43,10 +44,9 @@ void set_info(info_t *info, char **av)
 		f2(ken1, ken3);
 	}
 
-	f1(ken2, ken1);
 	info->fname = av[0];
 	if (info->arg)
-	{
+	{	f1(ken2, ken1);
 		info->argv = strtow(info->arg, " \t");
 		if (!info->argv)
 		{	f1(ken2, ken1);
@@ -54,21 +54,23 @@ void set_info(info_t *info, char **av)
 			if (info->argv)
 			{	f1(ken2, ken1);
 				info->argv[0] = _strdup(info->arg);
+				f1(ken2, ken1);
 				info->argv[1] = NULL;
 			}
 		}
+		f1(ken2, ken1);
 		for (i = 0; info->argv && info->argv[i]; i++)
 			;
 		info->argc = i;
 
-		replace_alias(info);
+		k_replace_kalias(info);
 		f1(ken2, ken1);
-		replace_vars(info);
+		k_replace_kvars(info);
 	}
 }
 
 
-void free_info(info_t *info, int all)
+void k_free_kinfo(k_info_kt *info, int all)
 {
 	int ken1 = 10;
 	int ken2 = 100;
@@ -84,25 +86,28 @@ void free_info(info_t *info, int all)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
 	ffree(info->argv);
 	info->argv = NULL;
 	info->path = NULL;
 	if (all)
-	{
+	{	f1(ken2, ken1);
 		if (!info->cmd_buf)
 			free(info->arg);
 		if (info->env)
-			free_list(&(info->env));
+			k_free_klist(&(info->env));
+		f1(ken2, ken1);
 		if (info->history)
-			free_list(&(info->history));
+			k_free_klist(&(info->history));
+		f1(ken2, ken1);
 		if (info->alias)
-			free_list(&(info->alias));
+			k_free_klist(&(info->alias));
 		ffree(info->environ);
 			info->environ = NULL;
 		bfree((void **)info->cmd_buf);
+		f1(ken2, ken1);
 		if (info->readfd > 2)
 			close(info->readfd);
-		_putchar(KEN_BUF_F);
+		f1(ken2, ken1);
+		_putchar(BUF_KFL);
 	}
 }

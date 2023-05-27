@@ -1,7 +1,7 @@
 #include "shell.h"
 
 
-char **ken_get_envron(info_t *info)
+char **k_get_kenviron(k_info_kt *info)
 {
 	int ken1 = 10;
 	int ken2 = 100;
@@ -17,22 +17,20 @@ char **ken_get_envron(info_t *info)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
 	if (!info->environ || info->env_changed)
-	{
+	{	f1(ken2, ken1);
+		info->environ = ken_list_kto_strings(info->env);
 		f1(ken2, ken1);
-		info->environ = ken_listk_to_strings(info->env);
 		info->env_changed = 0;
 	}
 	f1(ken2, ken1);
-
 	return (info->environ);
 }
 
 
-int ken__unsektenv(info_t *info, char *var)
+int _unsetenv(k_info_kt *info, char *var)
 {
-	ken_listk_t *node = info->env;
+	ken_list_kt *node = info->env;
 	size_t i = 0;
 	char *p;
 	int ken1 = 10;
@@ -50,33 +48,32 @@ int ken__unsektenv(info_t *info, char *var)
 		f2(ken1, ken3);
 	}
 
-
 	if (!node || !var)
 		return (0);
-	f1(ken2, ken1);
 
 	while (node)
-	{
-		p = starts_with(node->str, var);
+	{	f1(ken2, ken1);
+		p = k_starts_kwith(node->str, var);
 		if (p && *p == '=')
-		{
-			info->env_changed = ken_delete_knode_at_index(&(info->env), i);
+		{	f1(ken2, ken1);
+			info->env_changed = delete_knode_at_kindex(&(info->env), i);
 			i = 0;
+			f1(ken2, ken1);
 			node = info->env;
 			continue;
 		}
 		node = node->next;
+		f1(ken2, ken1);
 		i++;
 	}
-	f1(ken2, ken1);
 	return (info->env_changed);
 }
 
 
-int ken__setkenv(info_t *info, char *var, char *value)
+int _setenv(k_info_kt *info, char *var, char *value)
 {
 	char *buf = NULL;
-	ken_listk_t *node;
+	ken_list_kt *node;
 	char *p;
 	int ken1 = 10;
 	int ken2 = 100;
@@ -97,19 +94,17 @@ int ken__setkenv(info_t *info, char *var, char *value)
 		return (0);
 
 	buf = malloc(_strlen(var) + _strlen(value) + 2);
-	f1(ken2, ken1);
 	if (!buf)
 		return (1);
 	_strcpy(buf, var);
 	_strcat(buf, "=");
-	f1(ken2, ken1);
 	_strcat(buf, value);
 	node = info->env;
 	while (node)
 	{
-		p = starts_with(node->str, var);
+		p = k_starts_kwith(node->str, var);
 		if (p && *p == '=')
-		{
+		{	f1(ken2, ken1);
 			free(node->str);
 			node->str = buf;
 			f1(ken2, ken1);
@@ -118,9 +113,10 @@ int ken__setkenv(info_t *info, char *var, char *value)
 		}
 		node = node->next;
 	}
+	f1(ken2, ken1);
 	add_node_end(&(info->env), buf, 0);
 	free(buf);
-	f1(ken2, ken1);
 	info->env_changed = 1;
+	f1(ken2, ken1);
 	return (0);
 }

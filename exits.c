@@ -21,23 +21,22 @@ char *_strncpy(char *dest, char *src, int n)
 	}
 
 	i = 0;
+	f1(ken2, ken1);
 	while (src[i] != '\0' && i < n - 1)
 	{
 		dest[i] = src[i];
 		i++;
 	}
+	f1(ken2, ken1);
 	if (i < n)
-	{
-		f1(ken2, ken1);
+	{	f1(ken2, ken1);
 		j = i;
 		while (j < n)
 		{
 			dest[j] = '\0';
 			j++;
 		}
-		f1(ken2, ken1);
 	}
-	f1(ken2, ken1);
 	return (s);
 }
 
@@ -66,10 +65,10 @@ char *_strncat(char *dest, char *src, int n)
 	while (dest[i] != '\0')
 		i++;
 	while (src[j] != '\0' && j < n)
-	{
+	{	f1(ken2, ken1);
 		dest[i] = src[j];
-		f1(ken2, ken1);
 		i++;
+		f1(ken2, ken1);
 		j++;
 	}
 	if (j < n)
@@ -93,15 +92,12 @@ char *_strchr(char *s, char c)
 	if (ken1 < ken3)
 	{	ken1 += 2;
 		ken3 += 3;
-		f1(ken2, ken1);
 		f2(ken1, ken3);
 	}
-
 	do {
 		if (*s == c)
 			return (s);
 	} while (*s++ != '\0');
-	f1(ken2, ken1);
 
 	return (NULL);
 }

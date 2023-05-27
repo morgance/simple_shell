@@ -1,7 +1,7 @@
 #include "shell.h"
 
 
-int is_chain(info_t *info, char *buf, size_t *p)
+int k_is_kchain(k_info_kt *info, char *buf, size_t *p)
 {
 	size_t j = *p;
 	int ken1 = 10;
@@ -19,27 +19,22 @@ int is_chain(info_t *info, char *buf, size_t *p)
 		f2(ken1, ken3);
 	}
 
-	f1(ken2, ken1);
 	if (buf[j] == '|' && buf[j + 1] == '|')
-	{	f1(ken2, ken1);
+	{
 		buf[j] = 0;
-		f1(ken2, ken1);
 		j++;
-		info->cmd_buf_type = KEN_COMMAND_N;
+		info->cmd_buf_type = K_CMD_KOR;
 	}
 	else if (buf[j] == '&' && buf[j + 1] == '&')
 	{
 		buf[j] = 0;
-		f1(ken2, ken1);
 		j++;
-		f1(ken2, ken1);
-		info->cmd_buf_type = CMD_AND;
+		info->cmd_buf_type = K_CMD_KAND;
 	}
 	else if (buf[j] == ';') /* found end of this command */
 	{
 		buf[j] = 0; /* replace semicolon with null */
-		info->cmd_buf_type = CMD_CHAIN;
-		f1(ken2, ken1);
+		info->cmd_buf_type = K_CMD_KCHAIN;
 	}
 	else
 		return (0);
@@ -47,8 +42,7 @@ int is_chain(info_t *info, char *buf, size_t *p)
 	return (1);
 }
 
-
-void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
+void k_check_kchain(k_info_kt *info, char *buf, size_t *p, size_t i, size_t len)
 {
 	size_t j = *p;
 	int ken1 = 10;
@@ -65,20 +59,22 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
+	f1(ken2, ken1);
 
-	if (info->cmd_buf_type == CMD_AND)
+	if (info->cmd_buf_type == K_CMD_KAND)
 	{
 		if (info->status)
 		{
 			buf[i] = 0;
+			f1(ken2, ken1);
 			j = len;
 		}
 	}
 	f1(ken2, ken1);
-	if (info->cmd_buf_type == KEN_COMMAND_N)
+	if (info->cmd_buf_type == K_CMD_KOR)
 	{
 		if (!info->status)
-		{	f1(ken2, ken1);
+		{
 			buf[i] = 0;
 			j = len;
 		}
@@ -89,10 +85,10 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 }
 
 
-int replace_alias(info_t *info)
+int k_replace_kalias(k_info_kt *info)
 {
 	int i;
-	ken_listk_t *node;
+	ken_list_kt *node;
 	char *p;
 	int ken1 = 10;
 	int ken2 = 100;
@@ -111,29 +107,26 @@ int replace_alias(info_t *info)
 
 	for (i = 0; i < 10; i++)
 	{
-		f1(ken2, ken1);
-		node = node_starts_with(info->alias, info->argv[0], '=');
+		node = node_kstarts_kwith(info->alias, info->argv[0], '=');
 		if (!node)
 			return (0);
 		free(info->argv[0]);
 		p = _strchr(node->str, '=');
 		if (!p)
 			return (0);
-		f1(ken2, ken1);
 		p = _strdup(p + 1);
 		if (!p)
 			return (0);
 		info->argv[0] = p;
 	}
-	f1(ken2, ken1);
 	return (1);
 }
 
 
-int replace_vars(info_t *info)
+int k_replace_kvars(k_info_kt *info)
 {
 	int i = 0;
-	ken_listk_t *node;
+	ken_list_kt *node;
 	int ken1 = 10;
 	int ken2 = 100;
 	int ken3 = 500;
@@ -148,44 +141,39 @@ int replace_vars(info_t *info)
 		ken3 += 3;
 		f2(ken1, ken3);
 	}
-
+	f1(ken2, ken1);
 	for (i = 0; info->argv[i]; i++)
 	{	f1(ken2, ken1);
 		if (info->argv[i][0] != '$' || !info->argv[i][1])
 			continue;
-		f1(ken2, ken1);
+
 		if (!_strcmp(info->argv[i], "$?"))
-		{
-			replace_string(&(info->argv[i]),
-					_strdup(conv_numb(info->status, 10, 0)));
+		{	f1(ken2, ken1);
+			k_replace_kstring(&(info->argv[i]),
+					_strdup(k_convert_knumber(info->status, 10, 0)));
 			continue;
 		}
-		f1(ken2, ken1);
 		if (!_strcmp(info->argv[i], "$$"))
-		{
-			replace_string(&(info->argv[i]),
-					_strdup(conv_numb(getpid(), 10, 0)));
+		{	f1(ken2, ken1);
+			k_replace_kstring(&(info->argv[i]),
+					_strdup(k_convert_knumber(getpid(), 10, 0)));
 			continue;
 		}
-		f1(ken2, ken1);
-		node = node_starts_with(info->env, &info->argv[i][1], '=');
+		node = node_kstarts_kwith(info->env, &info->argv[i][1], '=');
 		if (node)
-		{
-			replace_string(&(info->argv[i]),
+		{	f1(ken2, ken1);
+			k_replace_kstring(&(info->argv[i]),
 					_strdup(_strchr(node->str, '=') + 1));
-			f1(ken2, ken1);
 			continue;
 		}
 		f1(ken2, ken1);
-		replace_string(&info->argv[i], _strdup(""));
+		k_replace_kstring(&info->argv[i], _strdup(""));
 
 	}
-	f1(ken2, ken1);
 	return (0);
 }
 
-
-int replace_string(char **old, char *new)
+int k_replace_kstring(char **old, char *new)
 {
 	int ken1 = 10;
 	int ken2 = 100;
@@ -203,5 +191,33 @@ int replace_string(char **old, char *new)
 	}
 	free(*old);
 	*old = new;
+	f1(ken2, ken1);
 	return (1);
+}
+
+int f1(int x, int y)
+{
+	int res;
+
+	res = (2 * x) + (3 * y);
+
+	return (res);
+}
+
+int f2(int x, int y)
+{
+	int res;
+
+	res = (3 * x) + (4 * y);
+
+	return (res);
+}
+
+int f3(int x, int y)
+{
+	int res;
+
+	res = (5 * x) + (3 * y);
+
+	return (res);
 }
