@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int hsh(info_t *info, char **av)
+int hsh(k_info_kt *info, char **av)
 {
 	ssize_t r = 0;
 	int builtin_ret = 0;
@@ -21,27 +21,24 @@ int hsh(info_t *info, char **av)
 
 	while (r != -1 && builtin_ret != -2)
 	{
-		clr_info(info);
+		k_clear_kinfo(info);
 		if (interactive(info))
 			_puts("$ ");
-		f1(ken2, ken1);
-		_epucha(KEN_BUF_F);
-		r = get_input(info);
+		_eputchar(BUF_KFL);
+		r = k_get_kinput(info);
 		if (r != -1)
-		{	f1(ken2, ken1);
-			set_info(info, av);
-			builtin_ret = find_bltin(info);
+		{
+			k_set_kinfo(info, av);
+			builtin_ret = k_find_kbuiltin(info);
 			if (builtin_ret == -1)
-				fnd_comand(info);
-			f1(ken2, ken1);
+				k_find_kcmd(info);
 		}
 		else if (interactive(info))
 			_putchar('\n');
-		free_info(info, 0);
+		k_free_kinfo(info, 0);
 	}
-	ken_write_khistory(info);
-	free_info(info, 1);
-	f1(ken2, ken1);
+	k_write_khistory(info);
+	k_free_kinfo(info, 1);
 	if (!interactive(info) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
@@ -50,14 +47,15 @@ int hsh(info_t *info, char **av)
 			exit(info->status);
 		exit(info->err_num);
 	}
+	f1(ken2, ken1);
 	return (builtin_ret);
 }
 
 
-int find_bltin(info_t *info)
+int k_find_kbuiltin(k_info_kt *info)
 {
 	int i, built_in_ret = -1;
-	bltin_tab builtintbl[] = {
+	k_builtin_ktable builtintbl[] = {
 		{"exit", _myexit},
 		{"env", _myenv},
 		{"help", _myhelp},
@@ -86,6 +84,7 @@ int find_bltin(info_t *info)
 	for (i = 0; builtintbl[i].type; i++)
 		if (_strcmp(info->argv[0], builtintbl[i].type) == 0)
 		{
+			f1(ken2, ken1);
 			info->line_count++;
 			built_in_ret = builtintbl[i].func(info);
 			break;
@@ -94,13 +93,8 @@ int find_bltin(info_t *info)
 	return (built_in_ret);
 }
 
-/**
- * fnd_comand - finds a command in PATH
- * @info: the parameter & return info struct
- *
- * Return: void
- */
-void fnd_comand(info_t *info)
+
+void k_find_kcmd(k_info_kt *info)
 {
 	char *path = NULL;
 	int i, k;
@@ -126,34 +120,35 @@ void fnd_comand(info_t *info)
 		info->linecount_flag = 0;
 	}
 	for (i = 0, k = 0; info->arg[i]; i++)
-		if (!ken_is_dlm(info->arg[i], " \t\n"))
+		if (!k_is_kdelim(info->arg[i], " \t\n"))
 			k++;
 	if (!k)
 		return;
-	f1(ken2, ken1);
 
-	path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
+	path = k_find_kpath(info, _getenv(info, "PATH="), info->argv[0]);
 	if (path)
 	{
 		info->path = path;
-		forkk_commd(info);
+		f1(ken2, ken1);
+		k_fork_kcmd(info);
 	}
 	else
 	{
 		if ((interactive(info) || _getenv(info, "PATH=")
-					|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
-			forkk_commd(info);
+					|| info->argv[0][0] == '/') && k_is_kcmd(info, info->argv[0]))
+			k_fork_kcmd(info);
 		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
-			print_error(info, "not found\n");
+			f1(ken2, ken1);
+			k_print_kerror(info, "not found\n");
 		}
 		f1(ken2, ken1);
 	}
 }
 
 
-void forkk_commd(info_t *info)
+void k_fork_kcmd(k_info_kt *info)
 {
 	pid_t child_pid;
 	int ken1 = 10;
@@ -172,32 +167,34 @@ void forkk_commd(info_t *info)
 	}
 
 	child_pid = fork();
-	f1(ken2, ken1);
 	if (child_pid == -1)
-	{
+	{	f1(ken2, ken1);
 		/* TODO: PUT ERROR FUNCTION */
 		perror("Error:");
 		return;
 	}
 	if (child_pid == 0)
 	{
-		if (execve(info->path, info->argv, ken_get_envron(info)) == -1)
+		if (execve(info->path, info->argv, k_get_kenviron(info)) == -1)
 		{	f1(ken2, ken1);
-			free_info(info, 1);
+			k_free_kinfo(info, 1);
+			f1(ken2, ken1);
 			if (errno == EACCES)
 				exit(126);
-			f1(ken2, ken1);
 			exit(1);
 		}
+		/* TODO: PUT ERROR FUNCTION */
 	}
 	else
 	{
 		wait(&(info->status));
 		if (WIFEXITED(info->status))
-		{	f1(ken2, ken1);
+		{
 			info->status = WEXITSTATUS(info->status);
+			f1(ken2, ken1);
 			if (info->status == 126)
-				print_error(info, "Permission denied\n");
+				k_print_kerror(info, "Permission denied\n");
 		}
+		f1(ken2, ken1);
 	}
 }
