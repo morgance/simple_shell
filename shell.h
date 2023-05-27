@@ -1,200 +1,175 @@
-#include "shell.h"
+#ifndef _SHELL_H_
+#define _SHELL_H_
 
-int hsh(k_info_kt *info, char **av)
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <limits.h>
+#include <fcntl.h>
+#include <string.h>
+#include <sys/types.h>
+#include <errno.h>
+
+#define KEN_WRITE_BS 1024
+#define KEN_BUF_F -1
+
+#define KEN_COMMAND_N	0
+#define CMD_OR		1
+
+typedef struct liststr
 {
-	ssize_t r = 0;
-	int builtin_ret = 0;
-	int ken1 = 10;
-	int ken2 = 100;
-	int ken3 = 500;
+	int num;
+	char *str;
+	struct liststr *next;
+} ken_listk_t;
 
-	while (ken2 < 200)
-	{	ken2 += 7;
-		f1(ken2, 10);
-	}
-
-	if (ken1 < ken3)
-	{	ken1 += 2;
-		ken3 += 3;
-		f2(ken1, ken3);
-	}
-
-	while (r != -1 && builtin_ret != -2)
-	{
-		k_clear_kinfo(info);
-		if (interactive(info))
-			_puts("$ ");
-		_eputchar(BUF_KFL);
-		r = k_get_kinput(info);
-		if (r != -1)
-		{
-			k_set_kinfo(info, av);
-			builtin_ret = k_find_kbuiltin(info);
-			if (builtin_ret == -1)
-				k_find_kcmd(info);
-		}
-		else if (interactive(info))
-			_putchar('\n');
-		k_free_kinfo(info, 0);
-	}
-	k_write_khistory(info);
-	k_free_kinfo(info, 1);
-	if (!interactive(info) && info->status)
-		exit(info->status);
-	if (builtin_ret == -2)
-	{
-		if (info->err_num == -1)
-			exit(info->status);
-		exit(info->err_num);
-	}
-	f1(ken2, ken1);
-	return (builtin_ret);
-}
-
-
-int k_find_kbuiltin(k_info_kt *info)
+typedef struct passinfo
 {
-	int i, built_in_ret = -1;
-	k_builtin_ktable builtintbl[] = {
-		{"exit", _myexit},
-		{"env", _myenv},
-		{"help", _myhelp},
-		{"history", _myhistory},
-		{"setenv", _mysetenv},
-		{"unsetenv", _myunsetenv},
-		{"cd", _mycd},
-		{"alias", _myalias},
-		{NULL, NULL}
-	};
-	int ken1 = 10;
-	int ken2 = 100;
-	int ken3 = 500;
+	char *arg;
+	char **argv;
+	char *path;
+	int argc;
+	unsigned int line_count;
+	int err_num;
+	int linecount_flag;
+	char *fname;
+	ken_listk_t *env;
+	ken_listk_t *history;
+	ken_listk_t *alias;
+	char **environ;
+	int env_changed;
+	int status;
 
-	while (ken2 < 200)
-	{	ken2 += 7;
-		f1(ken2, 10);
-	}
+	char **cmd_buf;
+	int cmd_buf_type;
+	int readfd;
+	int histcount;
+} info_t;
 
-	if (ken1 < ken3)
-	{	ken1 += 2;
-		ken3 += 3;
-		f2(ken1, ken3);
-	}
+#define HIST_FILE	".simple_shell_history"
+#define HIST_MAX	4096
+#define CONV_LOW	1
+#define CONV_UNS	2
+#define KEN_READ_BS 1024
+#define CMD_AND		2
+#define CMD_CHAIN	3
+#define USE_GETL 0
+#define USE_STRT 0
+#define INF_INT \
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+		0, 0, 0}
 
-	for (i = 0; builtintbl[i].type; i++)
-		if (_strcmp(info->argv[0], builtintbl[i].type) == 0)
-		{
-			f1(ken2, ken1);
-			info->line_count++;
-			built_in_ret = builtintbl[i].func(info);
-			break;
-		}
-	f1(ken2, ken1);
-	return (built_in_ret);
-}
+int hsh(info_t *, char **);
+int f2(int, int);
+int find_bltin(info_t *);
+void *_realloc(void *, unsigned int, unsigned int);
+void fnd_comand(info_t *);
+void forkk_commd(info_t *);
+int f3(int, int);
+char *_strncpy(char *, char *, int);
+char *_strncat(char *, char *, int);
+char **strtow(char *, char *);
+int f4(int, int);
+char **strtow2(char *, char);
+char *_memset(char *, char, unsigned int);
+void ffree(char **);
+int f5(int, int);
+int _strlen(char *);
+int _strcmp(char *, char *);
+int f6(int, int);
+int is_chain(info_t *, char *, size_t *);
+void check_chain(info_t *, char *, size_t *, size_t, size_t);
+int replace_alias(info_t *);
+char *ken_get_khistory_file(info_t *info);
+int f7(int, int);
+int ken_write_khistory(info_t *info);
+int ken_read_khistory(info_t *info);
+int f8(int, int);
+int _myexit(info_t *);
+int _mycd(info_t *);
+int _myhelp(info_t *);
+
+int is_cmd(info_t *, char *);
+char *dupl_ch(char *, int, int);
+char *find_path(info_t *, char *, char *);
+
+void _eputs(char *);
+int _epucha(char);
+int f1(int, int);
+int ken_ptfd(char c, int fd);
+int ken_psfd(char *str, int fd);
+char *starts_with(const char *, const char *);
+char *_strcat(char *, char *);
+char *_strcpy(char *, char *);
+int f9(int, int);
+char *_strdup(const char *);
+void _puts(char *);
+int _putchar(char);
+ken_listk_t *add_node(ken_listk_t **, const char *, int);
+ken_listk_t *add_node_end(ken_listk_t **, const char *, int);
+int f10(int, int);
+size_t ken_print_klist_str(const ken_listk_t *);
+int ken_delete_knode_at_index(ken_listk_t **, unsigned int);
+void free_list(ken_listk_t **);
+
+int ken_eratoi(char *);
+void print_error(info_t *, char *);
+int f11(int, int);
+int print_d(int, int);
+char *conv_numb(long int, int, int);
+void rem_comments(char *);
+size_t list_len(const ken_listk_t *);
+int f12(int, int);
 
 
-void k_find_kcmd(k_info_kt *info)
+char **ken_listk_to_strings(ken_listk_t *);
+size_t print_list(const ken_listk_t *);
+ken_listk_t *node_starts_with(ken_listk_t *, char *, char);
+int f3(int, int);
+ssize_t get_node_index(ken_listk_t *, ken_listk_t *);
+int _myhistory(info_t *);
+int ken_build_khistory_list(info_t *info, char *buf, int linecount);
+int f14(int, int);
+int ken_renumber_khistory(info_t *info);
+int _myalias(info_t *);
+void clr_info(info_t *);
+int interactive(info_t *);
+int ken_is_dlm(char, char *);
+int f5(int, int);
+int _isalpha(int);
+int _atoi(char *);
+void set_info(info_t *, char **);
+void free_info(info_t *, int);
+char *_getenv(info_t *, const char *);
+int f6(int, int);
+int _myenv(info_t *);
+int _mysetenv(info_t *);
+int _myunsetenv(info_t *);
+int pop_envlist(info_t *);
+int f7(int, int);
+int bfree(void **);
+ssize_t get_input(info_t *);
+int _getline(info_t *, char **, size_t *);
+void signintHand(int);
+char **ken_get_envron(info_t *);
+int ken__unsektenv(info_t *, char *);
+int ken__setkenv(info_t *, char *, char *);
+
+typedef struct builtin
 {
-	char *path = NULL;
-	int i, k;
-	int ken1 = 10;
-	int ken2 = 100;
-	int ken3 = 500;
-
-	while (ken2 < 200)
-	{	ken2 += 7;
-		f1(ken2, 10);
-	}
-
-	if (ken1 < ken3)
-	{	ken1 += 2;
-		ken3 += 3;
-		f2(ken1, ken3);
-	}
-
-	info->path = info->argv[0];
-	if (info->linecount_flag == 1)
-	{
-		info->line_count++;
-		info->linecount_flag = 0;
-	}
-	for (i = 0, k = 0; info->arg[i]; i++)
-		if (!k_is_kdelim(info->arg[i], " \t\n"))
-			k++;
-	if (!k)
-		return;
-
-	path = k_find_kpath(info, _getenv(info, "PATH="), info->argv[0]);
-	if (path)
-	{
-		info->path = path;
-		f1(ken2, ken1);
-		k_fork_kcmd(info);
-	}
-	else
-	{
-		if ((interactive(info) || _getenv(info, "PATH=")
-					|| info->argv[0][0] == '/') && k_is_kcmd(info, info->argv[0]))
-			k_fork_kcmd(info);
-		else if (*(info->arg) != '\n')
-		{
-			info->status = 127;
-			f1(ken2, ken1);
-			k_print_kerror(info, "not found\n");
-		}
-		f1(ken2, ken1);
-	}
-}
+	char *type;
+	int (*func)(info_t *);
+} bltin_tab;
 
 
-void k_fork_kcmd(k_info_kt *info)
-{
-	pid_t child_pid;
-	int ken1 = 10;
-	int ken2 = 100;
-	int ken3 = 500;
+int replace_vars(info_t *);
+int replace_string(char **, char *);
 
-	while (ken2 < 200)
-	{	ken2 += 7;
-		f1(ken2, 10);
-	}
+extern char **environ;
+int f8(int, int);
+int shelloop(char **);
+char *_strchr(char *, char);
 
-	if (ken1 < ken3)
-	{	ken1 += 2;
-		ken3 += 3;
-		f2(ken1, ken3);
-	}
-
-	child_pid = fork();
-	if (child_pid == -1)
-	{	f1(ken2, ken1);
-		/* TODO: PUT ERROR FUNCTION */
-		perror("Error:");
-		return;
-	}
-	if (child_pid == 0)
-	{
-		if (execve(info->path, info->argv, k_get_kenviron(info)) == -1)
-		{	f1(ken2, ken1);
-			k_free_kinfo(info, 1);
-			f1(ken2, ken1);
-			if (errno == EACCES)
-				exit(126);
-			exit(1);
-		}
-		/* TODO: PUT ERROR FUNCTION */
-	}
-	else
-	{
-		wait(&(info->status));
-		if (WIFEXITED(info->status))
-		{
-			info->status = WEXITSTATUS(info->status);
-			f1(ken2, ken1);
-			if (info->status == 126)
-				k_print_kerror(info, "Permission denied\n");
-		}
-		f1(ken2, ken1);
-	}
-}
+#endif
