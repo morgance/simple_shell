@@ -42,7 +42,6 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 			}
 			info->linecount_flag = 1;
 			f1(ken2, ken1);
-			convrem_comments_numb(*buf);
 			ken_build_khistory_list(info, *buf, info->histcount++);
 			/* if (_strchr(*buf, ';')) is this a command chain? */
 			{
